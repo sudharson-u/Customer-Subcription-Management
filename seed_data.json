@@ -1,0 +1,1824 @@
+{
+  "generated_at": "2026-10-17T22:22:37.882064",
+  "summary": {
+    "total_customers": 58,
+    "total_subscriptions": 79,
+    "multi_paper_customers": 14,
+    "review_queue_count": 5,
+    "dinakaran_count": 5,
+    "dinamalar_count": 21,
+    "nie_din_count": 18,
+    "the_hindu_count": 35
+  },
+  "customers": [
+    {
+      "customer_name": "Mohammed Jaffer",
+      "mobile_number": "9003103868",
+      "email": "Sudharson192007@gmail.com",
+      "address": "17/2, Kumaravelu Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAKARAN",
+          "order_no": "",
+          "start_date": "2025-05-21",
+          "end_date": "2026-05-20",
+          "is_end_date_calculated": true,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 1
+        },
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2025-08-21",
+          "end_date": "2026-08-20",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 9
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-07-16",
+          "end_date": "2027-07-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 15
+        }
+      ],
+      "customer_code": "HIN-0001"
+    },
+    {
+      "customer_name": "Abdul Wajj Basha",
+      "mobile_number": "8428402963",
+      "email": "Whytellme751@gmail.com",
+      "address": "108/109, S.N Complex, 1st Floor, M.S Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAKARAN",
+          "order_no": "",
+          "start_date": "2026-09-20",
+          "end_date": "2027-09-19",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 2
+        },
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-02-21",
+          "end_date": "2027-02-20",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 1
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-09-16",
+          "end_date": "2026-09-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 20
+        }
+      ],
+      "customer_code": "HIN-0002"
+    },
+    {
+      "customer_name": "Umapathy",
+      "mobile_number": "9094013926",
+      "email": "uma250975@gmail.com",
+      "address": "Old No:3/2, New No:9, 2nd Floor, Veerasamy Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAKARAN",
+          "order_no": "",
+          "start_date": "2025-11-06",
+          "end_date": "2026-11-05",
+          "is_end_date_calculated": true,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 3
+        },
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2025-06-21",
+          "end_date": "2026-06-20",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 6
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-05-01",
+          "end_date": "2027-04-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 7
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-09-01",
+          "end_date": "2027-08-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 17
+        }
+      ],
+      "customer_code": "HIN-0003"
+    },
+    {
+      "customer_name": "Baskaran",
+      "mobile_number": "9500096060",
+      "email": "",
+      "address": "25, Adam Sahib Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAKARAN",
+          "order_no": "",
+          "start_date": "2026-01-01",
+          "end_date": "2026-12-31",
+          "is_end_date_calculated": true,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 4
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-09-16",
+          "end_date": "2026-09-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 21
+        }
+      ],
+      "customer_code": "HIN-0004"
+    },
+    {
+      "customer_name": "Abdul Rahman",
+      "mobile_number": "8754917984",
+      "email": "",
+      "address": "3, M.S. Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAKARAN",
+          "order_no": "",
+          "start_date": "2026-06-01",
+          "end_date": "2027-05-01",
+          "is_end_date_calculated": true,
+          "status": "Active",
+          "needs_review": true,
+          "review_reason": "Vague month date: 'June 2026' defaulted to 01/06/2026",
+          "remarks": "",
+          "raw_s_no": 5
+        }
+      ],
+      "customer_code": "HIN-0005"
+    },
+    {
+      "customer_name": "Dilli Babu",
+      "mobile_number": "9444011963",
+      "email": "",
+      "address": "48/75, M.S Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-03-01",
+          "end_date": "2027-02-28",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 2
+        }
+      ],
+      "customer_code": "HIN-0006"
+    },
+    {
+      "customer_name": "J. Kumaran",
+      "mobile_number": "8248632330",
+      "email": "",
+      "address": "81, P.V Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-03-01",
+          "end_date": "2027-02-28",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 3
+        }
+      ],
+      "customer_code": "HIN-0007"
+    },
+    {
+      "customer_name": "Revathi",
+      "mobile_number": "9952944588",
+      "email": "",
+      "address": "Old No: 1/2, New No: 3, Appair Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-03-01",
+          "end_date": "2027-02-28",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 4
+        }
+      ],
+      "customer_code": "HIN-0008"
+    },
+    {
+      "customer_name": "Sarumathy",
+      "mobile_number": "9790892770",
+      "email": "ukss61925@gmail.com",
+      "address": "14/23, Cg Colony Main Road, 1st Floor, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-03-01",
+          "end_date": "2027-02-28",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 5
+        },
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1333796",
+          "start_date": "2026-07-01",
+          "end_date": "2027-06-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 8
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-02-17",
+          "end_date": "2027-02-16",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 3
+        }
+      ],
+      "customer_code": "HIN-0009"
+    },
+    {
+      "customer_name": "Samantham",
+      "mobile_number": "9941280864",
+      "email": "",
+      "address": "9/1, Grace Garden, 3rd Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2025-08-11",
+          "end_date": "2026-08-10",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 7
+        }
+      ],
+      "customer_code": "HIN-0010"
+    },
+    {
+      "customer_name": "Velpandian",
+      "mobile_number": "9551296219",
+      "email": "ukss61925@gmail.com",
+      "address": "17/8, P.V Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-08-21",
+          "end_date": "2027-08-20",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 8
+        },
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1343628",
+          "start_date": "2025-12-16",
+          "end_date": "2026-12-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 14
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-12-01",
+          "end_date": "2026-11-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 28
+        }
+      ],
+      "customer_code": "HIN-0011"
+    },
+    {
+      "customer_name": "Rajaiah.P.P.J",
+      "mobile_number": "9444380150",
+      "email": "",
+      "address": "New No: 5, Old No: 4/2, G.F, Thoppai Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2025-09-01",
+          "end_date": "2026-08-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 10
+        }
+      ],
+      "customer_code": "HIN-0012"
+    },
+    {
+      "customer_name": "Dhakshana",
+      "mobile_number": "9841242328",
+      "email": "",
+      "address": "14/23, C.G Colony Main Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2025-09-01",
+          "end_date": "2026-08-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 11
+        },
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "",
+          "start_date": "2026-10-01",
+          "end_date": "2027-09-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 11
+        }
+      ],
+      "customer_code": "HIN-0013"
+    },
+    {
+      "customer_name": "S. Navaneetha Krishnan",
+      "mobile_number": "8681937147",
+      "email": "snega682004@gmail.com",
+      "address": "95/315, 2nd Floor, T.H Road, New Washermenpet, Chennai-81",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2024-11-11",
+          "end_date": "2025-11-10",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 12
+        },
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1353302",
+          "start_date": "2026-04-16",
+          "end_date": "2027-04-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 6
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-10-16",
+          "end_date": "2026-10-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 23
+        }
+      ],
+      "customer_code": "HIN-0014"
+    },
+    {
+      "customer_name": "V. Satheesh Kumar",
+      "mobile_number": "8754417984",
+      "email": "",
+      "address": "No:47, Puchammal Street, New Washermenpet, Chennai-81",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2024-11-11",
+          "end_date": "2025-11-10",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 13
+        },
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1353303",
+          "start_date": "2026-04-16",
+          "end_date": "2027-04-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 7
+        }
+      ],
+      "customer_code": "HIN-0015"
+    },
+    {
+      "customer_name": "M. Baskaran",
+      "mobile_number": "8667721720",
+      "email": "",
+      "address": "5, M.S. Kovil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-09-01",
+          "end_date": "2026-12-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 14
+        },
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "",
+          "start_date": "2025-09-01",
+          "end_date": "2026-08-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 18
+        }
+      ],
+      "customer_code": "HIN-0016"
+    },
+    {
+      "customer_name": "Sivakumar",
+      "mobile_number": "9841277900",
+      "email": "",
+      "address": "80/133, P.V. Kovil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2025-08-21",
+          "end_date": "2026-08-20",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 15
+        }
+      ],
+      "customer_code": "HIN-0017"
+    },
+    {
+      "customer_name": "Mohideen",
+      "mobile_number": "9710114049",
+      "email": "",
+      "address": "55/3, M.S. Kovil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-04-01",
+          "end_date": "2027-03-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 16
+        },
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "",
+          "start_date": "2026-10-01",
+          "end_date": "2027-09-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 12
+        }
+      ],
+      "customer_code": "HIN-0018"
+    },
+    {
+      "customer_name": "S. Idaiya Kani",
+      "mobile_number": "",
+      "email": "",
+      "address": "A.J. Colony, 4th Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-08-21",
+          "end_date": "2027-08-20",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": true,
+          "review_reason": "Mobile number missing in original record",
+          "remarks": "",
+          "raw_s_no": 17
+        }
+      ],
+      "customer_code": "HIN-0019"
+    },
+    {
+      "customer_name": "Pradeep Francis .S",
+      "mobile_number": "8838689708",
+      "email": "",
+      "address": "210, S.N. Chetty Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2025-11-21",
+          "end_date": "2026-11-20",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 18
+        }
+      ],
+      "customer_code": "HIN-0020"
+    },
+    {
+      "customer_name": "Shakila Begam",
+      "mobile_number": "9884963801",
+      "email": "",
+      "address": "46/2, Durgha Colony, Sheik Maistry Street, Royapuram, Chennai",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-01-01",
+          "end_date": "2026-12-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 19
+        }
+      ],
+      "customer_code": "HIN-0021"
+    },
+    {
+      "customer_name": "Sasikumar.R (Staff)",
+      "mobile_number": "8754444081",
+      "email": "",
+      "address": "13, 1st Floor, Mosque Street, Meenakshi Amman Pettai, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Staff",
+      "notes": "Office Staff",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": null,
+          "end_date": null,
+          "is_end_date_calculated": false,
+          "status": "Staff",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "Office Staff",
+          "raw_s_no": 20
+        }
+      ],
+      "customer_code": "HIN-0022"
+    },
+    {
+      "customer_name": "Vasanthi (Staff)",
+      "mobile_number": "9444436049",
+      "email": "",
+      "address": "63/3, Thambu Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Staff",
+      "notes": "Office Staff",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": null,
+          "end_date": null,
+          "is_end_date_calculated": false,
+          "status": "Staff",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "Office Staff",
+          "raw_s_no": 21
+        }
+      ],
+      "customer_code": "HIN-0023"
+    },
+    {
+      "customer_name": "Thiruthangal Nadar Kalyana Mandapam",
+      "mobile_number": "9884963235",
+      "email": "",
+      "address": "Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1343636",
+          "start_date": "2026-01-01",
+          "end_date": "2026-12-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 1
+        }
+      ],
+      "customer_code": "HIN-0024"
+    },
+    {
+      "customer_name": "Kalaiselvi",
+      "mobile_number": "9444886040",
+      "email": "",
+      "address": "4/1, Market Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "",
+          "start_date": "2026-01-16",
+          "end_date": "2027-01-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 2
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-09-01",
+          "end_date": "2027-08-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 18
+        }
+      ],
+      "customer_code": "HIN-0025"
+    },
+    {
+      "customer_name": "Sekar",
+      "mobile_number": "9840911602",
+      "email": "kumariuma961984@gmail.com",
+      "address": "New No:9, Old No:3/2, 1st Floor, Veerasamy Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1403301",
+          "start_date": "2026-02-01",
+          "end_date": "2027-01-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 3
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-06-01",
+          "end_date": "2027-05-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 14
+        }
+      ],
+      "customer_code": "HIN-0026"
+    },
+    {
+      "customer_name": "Navaneetha Krishnan",
+      "mobile_number": "824858273",
+      "email": "",
+      "address": "148/134, G.A Road, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1403302",
+          "start_date": "2026-02-01",
+          "end_date": "2027-01-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": true,
+          "review_reason": "Mobile number is 9 digits (824858273), needs 10 digits",
+          "remarks": "",
+          "raw_s_no": 4
+        }
+      ],
+      "customer_code": "HIN-0027"
+    },
+    {
+      "customer_name": "Siva",
+      "mobile_number": "9566172102",
+      "email": "",
+      "address": "36/41, Mcm Garden 1st Lane, Old Washermenpet, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1353302",
+          "start_date": "2026-04-16",
+          "end_date": "2027-04-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 5
+        }
+      ],
+      "customer_code": "HIN-0028"
+    },
+    {
+      "customer_name": "Ravin Dhall And Pulses",
+      "mobile_number": "9790913769",
+      "email": "",
+      "address": "24(13), Lotus Ramasamy Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Business/Institution",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1343607",
+          "start_date": "2026-09-01",
+          "end_date": "2027-08-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 9
+        }
+      ],
+      "customer_code": "HIN-0029"
+    },
+    {
+      "customer_name": "Ravi",
+      "mobile_number": "9500145101",
+      "email": "",
+      "address": "44/54, Thambu Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "",
+          "start_date": "2026-10-01",
+          "end_date": "2027-09-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 10
+        }
+      ],
+      "customer_code": "HIN-0030"
+    },
+    {
+      "customer_name": "Murugesan",
+      "mobile_number": "",
+      "email": "",
+      "address": "55/10, Telugu Chetty St, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1308559",
+          "start_date": "2025-12-16",
+          "end_date": "2026-12-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": true,
+          "review_reason": "Mobile number missing in original record",
+          "remarks": "",
+          "raw_s_no": 13
+        }
+      ],
+      "customer_code": "HIN-0031"
+    },
+    {
+      "customer_name": "Gokila",
+      "mobile_number": "9176630179",
+      "email": "uma250975@gmail.com",
+      "address": "88/129, P.V Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1343629",
+          "start_date": "2025-12-16",
+          "end_date": "2026-12-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 15
+        },
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-04-01",
+          "end_date": "2027-03-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 4
+        }
+      ],
+      "customer_code": "HIN-0032"
+    },
+    {
+      "customer_name": "Jiya Sudeen S/O Sadullah Khan",
+      "mobile_number": "9042227488",
+      "email": "",
+      "address": "15c/162, East Kalmandapam Road, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1343631",
+          "start_date": "2025-12-16",
+          "end_date": "2026-12-16",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": true,
+          "review_reason": "Suspicious end date: 16/12/2026 (exact 366d / 1-yr standard is 15/12/2026)",
+          "remarks": "",
+          "raw_s_no": 16
+        }
+      ],
+      "customer_code": "HIN-0033"
+    },
+    {
+      "customer_name": "Aadhavan Ad Service - Mr. Sivagnanam",
+      "mobile_number": "9551097909",
+      "email": "",
+      "address": "27/7a, 1st Floor, Appaier Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Free Copy",
+      "notes": "Free Copy",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "13187",
+          "start_date": null,
+          "end_date": null,
+          "is_end_date_calculated": false,
+          "status": "Free",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "Free Copy",
+          "raw_s_no": 17
+        }
+      ],
+      "customer_code": "HIN-0034"
+    },
+    {
+      "customer_name": "Guhanathan",
+      "mobile_number": "9884668432",
+      "email": "",
+      "address": "78, Thoppai St, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-02-16",
+          "end_date": "2027-02-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 1
+        }
+      ],
+      "customer_code": "HIN-0035"
+    },
+    {
+      "customer_name": "Mustafa",
+      "mobile_number": "9840240438",
+      "email": "",
+      "address": "7/2, Fakri Residency North Matha Church Street, Royapuram, Chennai-13 (32/26, Matha Church Street)",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-01-02",
+          "end_date": "2027-01-01",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 2
+        }
+      ],
+      "customer_code": "HIN-0036"
+    },
+    {
+      "customer_name": "Abdul Majeed",
+      "mobile_number": "9840255478",
+      "email": "kumariuma961984@gmail.com",
+      "address": "Old No:96, New No:207, Adam Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-04-16",
+          "end_date": "2027-04-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 5
+        }
+      ],
+      "customer_code": "HIN-0037"
+    },
+    {
+      "customer_name": "Durai Star Tailor",
+      "mobile_number": "9710219962",
+      "email": "sudharson192007@gmail.com",
+      "address": "22/4, East Kalmandapam Road, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Business/Institution",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-04-16",
+          "end_date": "2027-04-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 6
+        }
+      ],
+      "customer_code": "HIN-0038"
+    },
+    {
+      "customer_name": "Abdul Rahman",
+      "mobile_number": "9941418296",
+      "email": "Snega8428@gmail.com",
+      "address": "12/23, West Kalmandapam Road, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-05-16",
+          "end_date": "2027-05-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 8
+        }
+      ],
+      "customer_code": "HIN-0039"
+    },
+    {
+      "customer_name": "Sandeep Bharadwaj",
+      "mobile_number": "9841249876",
+      "email": "kumariuma961984@gmail.com",
+      "address": "61/32, Arothon Road, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-06-01",
+          "end_date": "2027-05-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 9
+        }
+      ],
+      "customer_code": "HIN-0040"
+    },
+    {
+      "customer_name": "Jeevanantham",
+      "mobile_number": "9840051855",
+      "email": "whytellme751@gmail.com",
+      "address": "55/2, Adam Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-06-01",
+          "end_date": "2027-05-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 10
+        }
+      ],
+      "customer_code": "HIN-0041"
+    },
+    {
+      "customer_name": "Vairamani",
+      "mobile_number": "9444431847",
+      "email": "snega682004@gmail.com",
+      "address": "13/7, C.G Colony Main Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-06-01",
+          "end_date": "2027-05-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 11
+        }
+      ],
+      "customer_code": "HIN-0042"
+    },
+    {
+      "customer_name": "Praveen Kumar",
+      "mobile_number": "9444878175",
+      "email": "sudharson192007@gmail.com",
+      "address": "179, Adam Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-06-01",
+          "end_date": "2027-05-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 12
+        }
+      ],
+      "customer_code": "HIN-0043"
+    },
+    {
+      "customer_name": "Varghese",
+      "mobile_number": "9840697349",
+      "email": "ukss61925@gmail.com",
+      "address": "282/96, S.N Chetty Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-06-01",
+          "end_date": "2027-05-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 13
+        }
+      ],
+      "customer_code": "HIN-0044"
+    },
+    {
+      "customer_name": "Dhakshana Moorthy",
+      "mobile_number": "9841955253",
+      "email": "kumariuma961984@gmail.com",
+      "address": "14/23, C.G Colony Main Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-09-01",
+          "end_date": "2027-08-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 16
+        }
+      ],
+      "customer_code": "HIN-0045"
+    },
+    {
+      "customer_name": "Dilli Babu",
+      "mobile_number": "9940626555",
+      "email": "ukss61925@gmail.com",
+      "address": "48/75, M.S Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-09-18",
+          "end_date": "2026-09-17",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 19
+        }
+      ],
+      "customer_code": "HIN-0046"
+    },
+    {
+      "customer_name": "Susai Vallarian. R",
+      "mobile_number": "9176534423",
+      "email": "uma250975@gmail.com",
+      "address": "9/19, Bentlemen Garden, 2nd Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-10-01",
+          "end_date": "2026-09-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 22
+        }
+      ],
+      "customer_code": "HIN-0047"
+    },
+    {
+      "customer_name": "The Head Mistress",
+      "mobile_number": "9840077986",
+      "email": "",
+      "address": "84/39, Arothon Road, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Business/Institution",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-10-16",
+          "end_date": "2026-10-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 24
+        }
+      ],
+      "customer_code": "HIN-0048"
+    },
+    {
+      "customer_name": "Kutub Rangoonwala",
+      "mobile_number": "9840864865",
+      "email": "ukss61925@gmail.com",
+      "address": "14/22, Appair Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-11-16",
+          "end_date": "2026-11-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 25
+        }
+      ],
+      "customer_code": "HIN-0049"
+    },
+    {
+      "customer_name": "Radha Krishnan",
+      "mobile_number": "9840760787",
+      "email": "sudharson9ctnv@gmail.com",
+      "address": "B3, 2nd Floor, Bay-View Apartment, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-11-16",
+          "end_date": "2026-11-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 26
+        }
+      ],
+      "customer_code": "HIN-0050"
+    },
+    {
+      "customer_name": "Hasani Khasamwala",
+      "mobile_number": "9884354225",
+      "email": "",
+      "address": "6B, Salma Classic Apartment, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-11-16",
+          "end_date": "2026-11-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 27
+        }
+      ],
+      "customer_code": "HIN-0051"
+    },
+    {
+      "customer_name": "C.A Mohammed Yasin",
+      "mobile_number": "9444187217",
+      "email": "sudharson192007@gmail.com",
+      "address": "70/116, Shaik Maistry Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2025-12-01",
+          "end_date": "2026-11-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 29
+        }
+      ],
+      "customer_code": "HIN-0052"
+    },
+    {
+      "customer_name": "Selva Raj",
+      "mobile_number": "9444331808",
+      "email": "",
+      "address": "51/119, P.V Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Staff",
+      "notes": "Office Staff",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": null,
+          "end_date": null,
+          "is_end_date_calculated": false,
+          "status": "Staff",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "Office Staff",
+          "raw_s_no": 30
+        }
+      ],
+      "customer_code": "HIN-0053"
+    },
+    {
+      "customer_name": "Tasswar Ahmed",
+      "mobile_number": "9841588663",
+      "email": "",
+      "address": "58, Shaik Maistry Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Staff",
+      "notes": "Office Staff",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": null,
+          "end_date": null,
+          "is_end_date_calculated": false,
+          "status": "Staff",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "Office Staff",
+          "raw_s_no": 31
+        }
+      ],
+      "customer_code": "HIN-0054"
+    },
+    {
+      "customer_name": "Hamza",
+      "mobile_number": "9840182921",
+      "email": "",
+      "address": "32/2A, IInd Floor, East Kalmandapam Road, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-09-23",
+          "end_date": "2027-09-22",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 32
+        }
+      ],
+      "customer_code": "HIN-0055"
+    },
+    {
+      "customer_name": "Deepak Kumar",
+      "mobile_number": "8807793802",
+      "email": "",
+      "address": "36/26, Hussain Maistry Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-10-01",
+          "end_date": "2027-09-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 33
+        }
+      ],
+      "customer_code": "HIN-0056"
+    },
+    {
+      "customer_name": "Melvin Josh",
+      "mobile_number": "9940638315",
+      "email": "",
+      "address": "56/36, Fakkir Sahib Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-06-01",
+          "end_date": "2027-05-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 34
+        }
+      ],
+      "customer_code": "HIN-0057"
+    },
+    {
+      "customer_name": "Arihant Pawn",
+      "mobile_number": "8939887000",
+      "email": "",
+      "address": "No: 10, East Kalmandapam Road, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-04-16",
+          "end_date": "2027-04-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 35
+        }
+      ],
+      "customer_code": "HIN-0058"
+    }
+  ],
+  "review_queue": [
+    {
+      "id": "REV-DINAKARAN-5",
+      "newspaper": "DINAKARAN",
+      "type": "Data Validation Warning",
+      "severity": "info",
+      "customer_name": "Abdul Rahman",
+      "mobile": "8754917984",
+      "description": "Vague month date: 'June 2026' defaulted to 01/06/2026",
+      "subscription": {
+        "newspaper": "DINAKARAN",
+        "order_no": "",
+        "start_date": "2026-06-01",
+        "end_date": "2027-05-01",
+        "is_end_date_calculated": true,
+        "status": "Active",
+        "needs_review": true,
+        "review_reason": "Vague month date: 'June 2026' defaulted to 01/06/2026",
+        "remarks": "",
+        "raw_s_no": 5
+      }
+    },
+    {
+      "id": "REV-DINAMALAR-17",
+      "newspaper": "DINAMALAR",
+      "type": "Data Validation Warning",
+      "severity": "warning",
+      "customer_name": "S. Idaiya Kani",
+      "mobile": "",
+      "description": "Mobile number missing in original record",
+      "subscription": {
+        "newspaper": "DINAMALAR",
+        "order_no": "",
+        "start_date": "2026-08-21",
+        "end_date": "2027-08-20",
+        "is_end_date_calculated": false,
+        "status": "Active",
+        "needs_review": true,
+        "review_reason": "Mobile number missing in original record",
+        "remarks": "",
+        "raw_s_no": 17
+      }
+    },
+    {
+      "id": "REV-NIE_DIN-4",
+      "newspaper": "NIE_DIN",
+      "type": "Data Validation Warning",
+      "severity": "warning",
+      "customer_name": "Navaneetha Krishnan",
+      "mobile": "824858273",
+      "description": "Mobile number is 9 digits (824858273), needs 10 digits",
+      "subscription": {
+        "newspaper": "NIE_DIN",
+        "order_no": "1403302",
+        "start_date": "2026-02-01",
+        "end_date": "2027-01-31",
+        "is_end_date_calculated": false,
+        "status": "Active",
+        "needs_review": true,
+        "review_reason": "Mobile number is 9 digits (824858273), needs 10 digits",
+        "remarks": "",
+        "raw_s_no": 4
+      }
+    },
+    {
+      "id": "REV-NIE_DIN-13",
+      "newspaper": "NIE_DIN",
+      "type": "Data Validation Warning",
+      "severity": "warning",
+      "customer_name": "Murugesan",
+      "mobile": "",
+      "description": "Mobile number missing in original record",
+      "subscription": {
+        "newspaper": "NIE_DIN",
+        "order_no": "1308559",
+        "start_date": "2025-12-16",
+        "end_date": "2026-12-15",
+        "is_end_date_calculated": false,
+        "status": "Active",
+        "needs_review": true,
+        "review_reason": "Mobile number missing in original record",
+        "remarks": "",
+        "raw_s_no": 13
+      }
+    },
+    {
+      "id": "REV-NIE_DIN-16",
+      "newspaper": "NIE_DIN",
+      "type": "Data Validation Warning",
+      "severity": "info",
+      "customer_name": "Jiya Sudeen S/O Sadullah Khan",
+      "mobile": "9042227488",
+      "description": "Suspicious end date: 16/12/2026 (exact 366d / 1-yr standard is 15/12/2026)",
+      "subscription": {
+        "newspaper": "NIE_DIN",
+        "order_no": "1343631",
+        "start_date": "2025-12-16",
+        "end_date": "2026-12-16",
+        "is_end_date_calculated": false,
+        "status": "Active",
+        "needs_review": true,
+        "review_reason": "Suspicious end date: 16/12/2026 (exact 366d / 1-yr standard is 15/12/2026)",
+        "remarks": "",
+        "raw_s_no": 16
+      }
+    }
+  ]
+}

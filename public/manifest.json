@@ -1,0 +1,59 @@
+{
+  "name": "Hindu — Subscription Portal",
+  "short_name": "Hindu",
+  "description": "Subscription & Circulation Management for Dinakaran, Dinamalar, NIE / DIN, and The Hindu",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1B0B3B",
+  "theme_color": "#5B21B6",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "url": "/dashboard",
+      "description": "View subscription overview and renewal alerts"
+    },
+    {
+      "name": "Customers",
+      "url": "/customers",
+      "description": "Search and manage customer directory"
+    },
+    {
+      "name": "Renewals",
+      "url": "/renewals",
+      "description": "View pending and upcoming renewals"
+    },
+    {
+      "name": "Import / Export",
+      "url": "/import",
+      "description": "Import Excel register or export customer reports"
+    }
+  ]
+}
