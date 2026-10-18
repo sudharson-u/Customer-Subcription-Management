@@ -35,9 +35,13 @@ export async function GET(
       }
 
       const custObj = customer as any;
+      const allSubs = custObj.subscriptions || [];
+      const currentSubs = allSubs.filter((s: any) => s.is_current !== false && s.status !== 'Renewed');
+      const activeSubs = currentSubs.length > 0 ? currentSubs : allSubs;
+
       const formatted = {
         ...custObj,
-        subscriptions: (custObj.subscriptions || []).map((s: any) => ({
+        subscriptions: activeSubs.map((s: any) => ({
           ...s,
           newspaper: s.newspaper || s.newspapers,
         })),

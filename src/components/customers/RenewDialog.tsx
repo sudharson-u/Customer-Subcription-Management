@@ -5,6 +5,7 @@ import { X, RefreshCw, Loader2, Calendar, Check } from 'lucide-react';
 import { Customer, Subscription } from '@/lib/types';
 import { formatDate, calculateEndDate, NEWSPAPERS_META, cn } from '@/lib/utils';
 import { parseISO, addDays, format } from 'date-fns';
+import { markLocalUpdate } from '@/lib/syncTracker';
 
 interface RenewDialogProps {
   customer: Customer;
@@ -67,6 +68,7 @@ export default function RenewDialog({
     setLoading(true);
 
     try {
+      markLocalUpdate(realCustomerId);
       const res = await fetch(`/api/customers/${realCustomerId}/renew`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

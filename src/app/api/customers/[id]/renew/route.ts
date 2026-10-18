@@ -50,49 +50,46 @@ export async function POST(
         throw new Error('Current subscription not found');
       }
 
-      // 2. Mark old subscription as renewed / historical
-      await supabase
+      // Update the existing subscription in-place with new renewal dates, order_no, and active status
+      const { data: updatedSub, error: updateErr } = await supabase
         .from(TABLES.SUBSCRIPTIONS)
         .update({
-          is_current: false,
-          status: 'Renewed',
-        })
-        .eq('id', oldSub.id);
-
-      // 3. Insert new subscription
-      const { data: newSub, error: insertErr } = await supabase
-        .from(TABLES.SUBSCRIPTIONS)
-        .insert({
-          customer_id: customerId,
-          newspaper_id: oldSub.newspaper_id,
           order_no: order_no || oldSub.order_no,
           start_date: new_start_date,
           end_date: new_end_date,
           status: 'Active',
           is_current: true,
-          remarks: remarks || '',
+          is_end_date_calculated: false,
+          needs_review: false,
+          review_reason: null,
+          remarks: remarks || oldSub.remarks || '',
+          updated_at: new Date().toISOString(),
         })
-        .select()
+        .eq('id', oldSub.id)
+        .select(`
+          *,
+          newspaper:${TABLES.NEWSPAPERS}(id, code, name, short_name, accent_color, badge_bg, badge_text)
+        `)
         .single();
 
-      if (insertErr) throw insertErr;
+      if (updateErr) throw updateErr;
 
-      // 4. Update any pending notifications for the old sub
+      // Update any pending notifications for this sub
       await supabase
         .from(TABLES.NOTIFICATIONS)
         .update({ status: 'renewed' })
         .eq('subscription_id', oldSub.id);
 
-      // 5. Audit Log
+      // Audit Log
       await supabase.from(TABLES.AUDIT_LOGS).insert({
         customer_id: customerId,
-        subscription_id: newSub.id,
+        subscription_id: oldSub.id,
         action: 'subscription_renewed',
-        old_value: { old_end_date: oldSub.end_date },
-        new_value: { new_start_date, new_end_date, order_no, remarks },
+        old_value: { old_start_date: oldSub.start_date, old_end_date: oldSub.end_date, old_status: oldSub.status },
+        new_value: { new_start_date, new_end_date, order_no: order_no || oldSub.order_no, status: 'Active' },
       });
 
-      return NextResponse.json({ success: true, subscription: newSub });
+      return NextResponse.json({ success: true, subscription: updatedSub });
     } catch (err: any) {
       console.error('Error during renewal:', err);
       return NextResponse.json({ error: err.message }, { status: 500 });
@@ -105,21 +102,16 @@ export async function POST(
       const subIdx = cust.subscriptions.findIndex(s => s.id === subId || s.id === subscription_id);
       const targetIdx = subIdx >= 0 ? subIdx : 0;
       if (cust.subscriptions[targetIdx]) {
-        const old = cust.subscriptions[targetIdx];
-        const newSub = {
-          ...old,
-          id: `sub-${Date.now()}`,
-          start_date: new_start_date,
-          end_date: new_end_date,
-          order_no: order_no || old.order_no,
-          status: 'Active' as const,
-          is_current: true,
-          remarks: remarks || '',
-        };
-        // old sub marked not current
-        old.is_current = false;
-        old.status = 'Renewed' as any;
-        cust.subscriptions.unshift(newSub);
+        const target = cust.subscriptions[targetIdx];
+        target.start_date = new_start_date;
+        target.end_date = new_end_date;
+        if (order_no) target.order_no = order_no;
+        if (remarks) target.remarks = remarks;
+        target.status = 'Active';
+        target.is_current = true;
+        target.is_end_date_calculated = false;
+        target.needs_review = false;
+        target.review_reason = '';
         saveMockCustomer(cust);
       }
     }
