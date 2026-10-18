@@ -8,7 +8,8 @@ export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  const id = rawId.includes('__sub_') ? rawId.split('__sub_')[0] : rawId;
 
   if (isSupabaseConfigured()) {
     try {
@@ -58,7 +59,8 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  const id = rawId.includes('__sub_') ? rawId.split('__sub_')[0] : rawId;
   const body = await request.json();
   const {
     customer_name,
@@ -68,6 +70,7 @@ export async function PUT(
     street_area,
     customer_type,
     notes,
+    subscriptions,
     expected_version,
   } = body;
 
@@ -98,11 +101,11 @@ export async function PUT(
         .update({
           customer_name,
           mobile_number: cleanPhone,
-          email,
+          email: email || null,
           address,
-          street_area,
-          customer_type,
-          notes,
+          street_area: street_area || 'Royapuram',
+          customer_type: customer_type || 'Regular',
+          notes: notes || null,
           version: (expected_version || 1) + 1,
         })
         .eq('id', id)
@@ -111,15 +114,69 @@ export async function PUT(
 
       if (error) throw error;
 
+      // Update subscriptions if provided
+      if (Array.isArray(subscriptions)) {
+        // Fetch existing subscriptions for this customer
+        const { data: existingSubs } = await supabase
+          .from(TABLES.SUBSCRIPTIONS)
+          .select('id')
+          .eq('customer_id', id);
+
+        const existingIds = (existingSubs || []).map((s: any) => s.id);
+        const incomingIds = subscriptions.filter((s: any) => s.id && !s.id.startsWith('temp-')).map((s: any) => s.id);
+
+        // Remove subscriptions removed in the edit form
+        const toRemoveIds = existingIds.filter((exId: string) => !incomingIds.includes(exId));
+        if (toRemoveIds.length > 0) {
+          await supabase
+            .from(TABLES.SUBSCRIPTIONS)
+            .delete()
+            .in('id', toRemoveIds);
+        }
+
+        // Upsert / update incoming subscriptions
+        for (const sub of subscriptions) {
+          if (sub.id && existingIds.includes(sub.id)) {
+            await supabase
+              .from(TABLES.SUBSCRIPTIONS)
+              .update({
+                newspaper_id: sub.newspaper_id,
+                order_no: sub.order_no || null,
+                start_date: sub.start_date || null,
+                end_date: sub.end_date || null,
+                status: sub.status || 'Active',
+                is_end_date_calculated: sub.is_end_date_calculated || false,
+                is_current: true,
+              })
+              .eq('id', sub.id);
+          } else {
+            await supabase
+              .from(TABLES.SUBSCRIPTIONS)
+              .insert({
+                customer_id: id,
+                newspaper_id: sub.newspaper_id,
+                order_no: sub.order_no || null,
+                start_date: sub.start_date || null,
+                end_date: sub.end_date || null,
+                status: sub.status || 'Active',
+                is_end_date_calculated: sub.is_end_date_calculated || false,
+                is_current: true,
+                version: 1,
+              });
+          }
+        }
+      }
+
       // Log in audit logs
       await supabase.from(TABLES.AUDIT_LOGS).insert({
         customer_id: id,
         action: 'customer_updated',
-        new_value: { customer_name, mobile_number: cleanPhone, address, street_area },
+        new_value: { customer_name, mobile_number: cleanPhone, address, street_area, subscriptions_count: subscriptions?.length },
       });
 
       return NextResponse.json({ success: true, customer: updated });
     } catch (err: any) {
+      console.error('Error updating customer:', err);
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
   } else {
@@ -136,6 +193,23 @@ export async function PUT(
       street_area: street_area ?? found.street_area,
       customer_type: customer_type ?? found.customer_type,
       notes: notes ?? found.notes,
+      subscriptions: Array.isArray(subscriptions)
+        ? subscriptions.map((s: any, idx: number) => ({
+            id: s.id && !s.id.startsWith('temp-') ? s.id : `sub-${id}-${Date.now()}-${idx}`,
+            customer_id: id,
+            newspaper_id: s.newspaper_id,
+            order_no: s.order_no || '',
+            start_date: s.start_date || null,
+            end_date: s.end_date || null,
+            status: s.status || 'Active',
+            is_current: true,
+            is_end_date_calculated: s.is_end_date_calculated || false,
+            needs_review: false,
+            version: 1,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          }))
+        : found.subscriptions,
     });
 
     return NextResponse.json({ success: true, customer: updated });
@@ -146,7 +220,8 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  const id = rawId.includes('__sub_') ? rawId.split('__sub_')[0] : rawId;
 
   if (isSupabaseConfigured()) {
     try {

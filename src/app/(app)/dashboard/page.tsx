@@ -70,7 +70,11 @@ async function getDashboardData() {
   const upcomingRenewals: any[] = [];
 
   customers.forEach((c) => {
-    (c.subscriptions || []).forEach((s: any) => {
+    const allSubs = c.subscriptions || [];
+    const currentSubs = allSubs.filter((s: any) => s.is_current !== false && s.status !== 'Renewed');
+    const subsToCount = currentSubs.length > 0 ? currentSubs : (allSubs.length > 0 ? [allSubs[0]] : []);
+
+    subsToCount.forEach((s: any) => {
       stats.totalSubscriptions++;
       const pCode = (s.newspaper?.code || (s as any).newspaper || 'THE_HINDU') as NewspaperCode;
       if (stats.paperBreakdown[pCode] !== undefined) {
@@ -82,7 +86,7 @@ async function getDashboardData() {
       }
 
       // Count active subscriptions across circulation
-      if (s.status !== 'Dropped' && s.status !== 'Cancelled' && s.status !== 'Inactive') {
+      if (s.status !== 'Dropped' && s.status !== 'Cancelled' && s.status !== 'Inactive' && s.status !== 'Renewed') {
         stats.active++;
       }
 

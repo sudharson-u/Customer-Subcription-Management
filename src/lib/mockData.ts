@@ -107,7 +107,7 @@ function formatInitialCustomers(): Customer[] {
 
 // In-Memory store
 let inMemoryCustomers: Customer[] = formatInitialCustomers();
-let inMemoryReviewQueue: ReviewQueueItem[] = (seedData.review_queue || []) as ReviewQueueItem[];
+let inMemoryReviewQueue: ReviewQueueItem[] = (seedData.review_queue || []) as unknown as ReviewQueueItem[];
 
 export function getMockCustomers(): Customer[] {
   return inMemoryCustomers.map(c => ({

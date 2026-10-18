@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
 import { TABLES } from '@/lib/supabase/tables';
 import { RefreshCw, Users, CheckCircle, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { isRecentLocalUpdate } from '@/lib/syncTracker';
 
 export default function RealtimeToastListener() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -19,8 +19,16 @@ export default function RealtimeToastListener() {
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: TABLES.SUBSCRIPTIONS },
-        (payload) => {
+        (payload: any) => {
           const eventType = payload.eventType;
+          const subId = payload.new?.id;
+          const custId = payload.new?.customer_id;
+
+          // If this edit originated locally on this device, skip the false external notification
+          if (isRecentLocalUpdate(subId) || isRecentLocalUpdate(custId)) {
+            return;
+          }
+
           if (eventType === 'INSERT') {
             setToastMessage('New subscription added by administrator just now');
           } else if (eventType === 'UPDATE') {
@@ -32,7 +40,13 @@ export default function RealtimeToastListener() {
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: TABLES.CUSTOMERS },
-        (payload) => {
+        (payload: any) => {
+          const custId = payload.new?.id;
+          // If this edit originated locally on this device, skip the false external notification
+          if (isRecentLocalUpdate(custId)) {
+            return;
+          }
+
           if (payload.eventType === 'UPDATE') {
             setToastMessage('Customer record synchronized live from another device');
             setTimeout(() => setToastMessage(null), 4500);

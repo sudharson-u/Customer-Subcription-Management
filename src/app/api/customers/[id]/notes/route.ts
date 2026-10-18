@@ -7,7 +7,8 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  const id = rawId.includes('__sub_') ? rawId.split('__sub_')[0] : rawId;
   const { notes } = await request.json();
 
   if (isSupabaseConfigured()) {

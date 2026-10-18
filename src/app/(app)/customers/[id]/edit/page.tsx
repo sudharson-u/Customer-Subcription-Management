@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { Customer, Subscription, NewspaperCode, CustomerType, SubscriptionStatus } from '@/lib/types';
 import { NEWSPAPERS, calculateEndDate, parseDateString } from '@/lib/utils';
+import { markLocalUpdate } from '@/lib/syncTracker';
 
 export default function EditCustomerPage({
   params,
@@ -22,6 +23,7 @@ export default function EditCustomerPage({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [subscriptionToRemove, setSubscriptionToRemove] = useState<{ index: number; name: string } | null>(null);
 
   // Form State
   const [customerName, setCustomerName] = useState('');
@@ -130,6 +132,9 @@ export default function EditCustomerPage({
         throw new Error('Customer name is required');
       }
 
+      // Mark this update as local to suppress false "synchronized from another device" alert
+      markLocalUpdate(id);
+
       const res = await fetch(`/api/customers/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -143,7 +148,7 @@ export default function EditCustomerPage({
           customer_type: customerType,
           notes: notes.trim() || undefined,
           subscriptions: subscriptions.map((s) => ({
-            id: s.id.startsWith('temp-') ? undefined : s.id,
+            id: s.id && !s.id.startsWith('temp-') ? s.id : undefined,
             newspaper_id: s.newspaper_id,
             order_no: s.order_no ? s.order_no.trim() : undefined,
             start_date: s.start_date || null,
@@ -162,7 +167,7 @@ export default function EditCustomerPage({
       setSuccess(true);
       setTimeout(() => {
         router.push(`/customers/${id}`);
-      }, 1000);
+      }, 800);
     } catch (err: any) {
       setError(err.message || 'Error occurred while saving');
     } finally {
@@ -385,8 +390,11 @@ export default function EditCustomerPage({
                       </div>
                       <button
                         type="button"
-                        onClick={() => handleRemoveSubscription(index)}
-                        className="text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400 flex items-center gap-1 font-medium"
+                        onClick={() => {
+                          const pubName = NEWSPAPERS.find((n) => n.code === sub.code)?.name || sub.code || 'this publication';
+                          setSubscriptionToRemove({ index, name: pubName });
+                        }}
+                        className="text-xs text-rose-600 hover:text-rose-700 dark:text-rose-400 flex items-center gap-1 font-medium px-2 py-1 rounded-md hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
                       >
                         <Trash2 className="w-3.5 h-3.5" /> Remove
                       </button>
@@ -517,6 +525,47 @@ export default function EditCustomerPage({
           </div>
         </form>
       </div>
+
+      {/* Confirmation Modal for Removing Subscription */}
+      {subscriptionToRemove !== null && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 max-w-md w-full shadow-2xl space-y-4">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-full bg-rose-100 dark:bg-rose-950/50 flex items-center justify-center text-rose-600 dark:text-rose-400 shrink-0">
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-gray-900 dark:text-white">
+                  Remove Subscription Copy?
+                </h3>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">
+                  Are you sure you want to remove the subscription for <span className="font-semibold text-gray-900 dark:text-white">{subscriptionToRemove.name}</span>? This will take effect once you click &ldquo;Save Profile &amp; Subscriptions&rdquo;.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-gray-100 dark:border-gray-800">
+              <button
+                type="button"
+                onClick={() => setSubscriptionToRemove(null)}
+                className="btn-secondary text-xs py-2 px-4"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  handleRemoveSubscription(subscriptionToRemove.index);
+                  setSubscriptionToRemove(null);
+                }}
+                className="btn-danger text-xs py-2 px-4 inline-flex items-center gap-1.5"
+              >
+                <Trash2 className="w-3.5 h-3.5" /> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

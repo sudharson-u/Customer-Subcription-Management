@@ -1,6 +1,6 @@
 export type NewspaperCode = 'DINAKARAN' | 'DINAMALAR' | 'NIE_DIN' | 'THE_HINDU';
 
-export type SubscriptionStatus = 'Active' | 'Expiring' | 'Expired' | 'Dropped' | 'Free' | 'Staff';
+export type SubscriptionStatus = 'Active' | 'Expiring' | 'Expired' | 'Dropped' | 'Free' | 'Staff' | 'Renewed';
 
 export type CustomerType = 'Regular' | 'Staff' | 'Free Copy' | 'Business/Institution';
 

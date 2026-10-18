@@ -5,6 +5,7 @@ import {
   parseISO,
   isBefore,
   differenceInDays,
+  differenceInCalendarDays,
   isValid,
   subDays,
   addMonths,
@@ -161,7 +162,12 @@ export function calculateStatus(
   today: Date = new Date(),
   windowDays: number = 30
 ): SubscriptionStatus {
-  if (currentStatus === 'Staff' || currentStatus === 'Free' || currentStatus === 'Dropped') {
+  if (
+    currentStatus === 'Staff' ||
+    currentStatus === 'Free' ||
+    currentStatus === 'Dropped' ||
+    currentStatus === 'Renewed'
+  ) {
     return currentStatus;
   }
   if (!endDate) return 'Active';
@@ -169,13 +175,12 @@ export function calculateStatus(
   const end = typeof endDate === 'string' ? parseISO(endDate) : endDate;
   if (!isValid(end)) return 'Active';
 
-  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const notifDate = subDays(end, windowDays);
+  const diffDays = differenceInCalendarDays(end, today);
 
-  if (isBefore(end, todayStart)) {
+  if (diffDays < 0) {
     return 'Expired';
   }
-  if (todayStart >= notifDate) {
+  if (diffDays <= windowDays) {
     return 'Expiring';
   }
   return 'Active';
@@ -185,8 +190,7 @@ export function calculateDaysRemaining(endDate?: Date | string | null, today: Da
   if (!endDate) return null;
   const end = typeof endDate === 'string' ? parseISO(endDate) : endDate;
   if (!isValid(end)) return null;
-  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  return differenceInDays(end, todayStart);
+  return differenceInCalendarDays(end, today);
 }
 
 export const getDaysRemaining = calculateDaysRemaining;

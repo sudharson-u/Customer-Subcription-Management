@@ -11,11 +11,13 @@ import RenewDialog from '@/components/customers/RenewDialog';
 interface RenewalCustomerCardProps {
   customer: Customer;
   todayString: string;
+  onRenewed?: () => void;
 }
 
 export default function RenewalCustomerCard({
   customer,
   todayString,
+  onRenewed,
 }: RenewalCustomerCardProps) {
   const router = useRouter();
   const [showRenewDialog, setShowRenewDialog] = useState(false);
@@ -129,6 +131,7 @@ export default function RenewalCustomerCard({
           onClose={() => setShowRenewDialog(false)}
           onSuccess={() => {
             setShowRenewDialog(false);
+            if (onRenewed) onRenewed();
             router.refresh();
           }}
         />

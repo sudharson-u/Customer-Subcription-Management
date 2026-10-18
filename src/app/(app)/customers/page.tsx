@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import {
   Search, Filter, Plus, Phone, ArrowUpDown, ChevronLeft, ChevronRight,
-  X, Download, MapPin, CheckSquare, Square, FileText, Check, ChevronDown
+  X, Download, MapPin, CheckSquare, Square, FileText, Check, ChevronDown, Newspaper
 } from 'lucide-react';
 import { formatDate, calculateStatus, calculateDaysRemaining, formatOrderId, NEWSPAPERS_META, cn } from '@/lib/utils';
 import { Customer, NewspaperCode, SubscriptionStatus } from '@/lib/types';
@@ -17,7 +17,7 @@ const PAGE_SIZE = 20;
 
 export default function CustomersPage() {
   const searchParams = useSearchParams();
-  const { selectedPaper } = useNewspaperFilter();
+  const { selectedPaper, setSelectedPaper } = useNewspaperFilter();
 
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [total, setTotal] = useState(0);
@@ -96,6 +96,7 @@ export default function CustomersPage() {
   function clearFilters() {
     setSearch('');
     setStatusFilter('');
+    setSelectedPaper('ALL');
     setPage(1);
   }
 
@@ -286,9 +287,63 @@ export default function CustomersPage() {
           )}
         </div>
 
+        {/* Newspaper Filter Row directly Above All Statuses */}
+        <div className="pt-2 pb-1 border-t border-purple-100 dark:border-[#2C185A]/80">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            <span className="text-[11px] font-bold text-gray-500 dark:text-purple-300 uppercase tracking-wider shrink-0 mr-1 flex items-center gap-1">
+              <Newspaper className="w-3.5 h-3.5 text-purple-500" /> Publication:
+            </span>
+            {[
+              { code: 'ALL' as const, label: 'All 4 Newspapers (79)' },
+              { code: 'THE_HINDU' as const, label: 'The Hindu (35)' },
+              { code: 'DINAMALAR' as const, label: 'Dinamalar (21)' },
+              { code: 'NIE_DIN' as const, label: 'NIE / DIN (18)' },
+              { code: 'DINAKARAN' as const, label: 'Dinakaran (5)' },
+            ].map((opt) => {
+              const isSelected = selectedPaper === opt.code;
+              return (
+                <button
+                  key={opt.code}
+                  type="button"
+                  id={`subscribers-paper-pill-${opt.code.toLowerCase()}`}
+                  onClick={() => {
+                    setSelectedPaper(opt.code);
+                    setPage(1);
+                  }}
+                  className={cn(
+                    'text-xs px-2.5 py-1 rounded-lg font-semibold transition-all whitespace-nowrap border shrink-0 cursor-pointer',
+                    isSelected
+                      ? 'bg-purple-600 border-purple-600 text-white shadow-xs'
+                      : 'bg-white dark:bg-[#1E113E] border-gray-200 dark:border-purple-900/50 text-gray-700 dark:text-purple-200 hover:border-purple-300 dark:hover:border-purple-700'
+                  )}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Filters Row */}
         <div className="flex flex-wrap gap-2 items-center">
           <Filter className="w-4 h-4 text-purple-400 flex-shrink-0" />
+
+          {/* Newspaper Dropdown Selector */}
+          <select
+            id="newspaper-select-filter"
+            value={selectedPaper}
+            onChange={(e) => {
+              setSelectedPaper(e.target.value as any);
+              setPage(1);
+            }}
+            className="form-input w-auto min-w-[150px] py-1.5 text-xs sm:text-sm font-semibold border-purple-300 dark:border-purple-700 text-purple-900 dark:text-purple-200"
+          >
+            <option value="ALL">All Newspapers (79)</option>
+            <option value="THE_HINDU">The Hindu (35)</option>
+            <option value="DINAMALAR">Dinamalar (21)</option>
+            <option value="NIE_DIN">NIE / DIN (18)</option>
+            <option value="DINAKARAN">Dinakaran (5)</option>
+          </select>
 
           <select
             id="status-filter"
@@ -321,7 +376,7 @@ export default function CustomersPage() {
             <option value="customer_code:asc">Customer Code</option>
           </select>
 
-          {(search || statusFilter) && (
+          {(search || statusFilter || selectedPaper !== 'ALL') && (
             <button
               onClick={clearFilters}
               className="flex items-center gap-1 text-xs font-bold text-rose-600 hover:text-rose-700 cursor-pointer ml-auto"

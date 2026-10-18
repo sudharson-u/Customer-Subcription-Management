@@ -7,21 +7,46 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  // Sanitize customerId in case a composite id (e.g. uuid__sub_uuid) was provided
+  const customerId = rawId.includes('__sub_') ? rawId.split('__sub_')[0] : rawId;
+  const subIdFromParam = rawId.includes('__sub_') ? rawId.split('__sub_')[1] : null;
+
   const { subscription_id, new_start_date, new_end_date, order_no, remarks } = await request.json();
+
+  let subId = subscription_id || subIdFromParam;
+  if (subId && subId.includes('__sub_')) {
+    subId = subId.split('__sub_')[1];
+  }
 
   if (isSupabaseConfigured()) {
     try {
       const supabase = await createClient();
 
       // 1. Fetch current subscription to retain newspaper_id
-      const { data: oldSub, error: fetchErr } = await supabase
-        .from(TABLES.SUBSCRIPTIONS)
-        .select('*')
-        .eq('id', subscription_id)
-        .single();
+      let oldSub: any = null;
+      if (subId) {
+        const { data, error } = await supabase
+          .from(TABLES.SUBSCRIPTIONS)
+          .select('*')
+          .eq('id', subId)
+          .maybeSingle();
+        if (!error && data) oldSub = data;
+      }
 
-      if (fetchErr || !oldSub) {
+      // Fallback: look for customer's most recent subscription
+      if (!oldSub) {
+        const { data, error } = await supabase
+          .from(TABLES.SUBSCRIPTIONS)
+          .select('*')
+          .eq('customer_id', customerId)
+          .order('end_date', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        if (!error && data) oldSub = data;
+      }
+
+      if (!oldSub) {
         throw new Error('Current subscription not found');
       }
 
@@ -32,13 +57,13 @@ export async function POST(
           is_current: false,
           status: 'Renewed',
         })
-        .eq('id', subscription_id);
+        .eq('id', oldSub.id);
 
       // 3. Insert new subscription
       const { data: newSub, error: insertErr } = await supabase
         .from(TABLES.SUBSCRIPTIONS)
         .insert({
-          customer_id: id,
+          customer_id: customerId,
           newspaper_id: oldSub.newspaper_id,
           order_no: order_no || oldSub.order_no,
           start_date: new_start_date,
@@ -56,11 +81,11 @@ export async function POST(
       await supabase
         .from(TABLES.NOTIFICATIONS)
         .update({ status: 'renewed' })
-        .eq('subscription_id', subscription_id);
+        .eq('subscription_id', oldSub.id);
 
       // 5. Audit Log
       await supabase.from(TABLES.AUDIT_LOGS).insert({
-        customer_id: id,
+        customer_id: customerId,
         subscription_id: newSub.id,
         action: 'subscription_renewed',
         old_value: { old_end_date: oldSub.end_date },
@@ -69,16 +94,18 @@ export async function POST(
 
       return NextResponse.json({ success: true, subscription: newSub });
     } catch (err: any) {
+      console.error('Error during renewal:', err);
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
   } else {
     // In-memory update
     const list = getMockCustomers();
-    const cust = list.find(c => c.id === id);
+    const cust = list.find(c => c.id === customerId || c.id === rawId);
     if (cust && cust.subscriptions) {
-      const subIdx = cust.subscriptions.findIndex(s => s.id === subscription_id);
-      if (subIdx >= 0) {
-        const old = cust.subscriptions[subIdx];
+      const subIdx = cust.subscriptions.findIndex(s => s.id === subId || s.id === subscription_id);
+      const targetIdx = subIdx >= 0 ? subIdx : 0;
+      if (cust.subscriptions[targetIdx]) {
+        const old = cust.subscriptions[targetIdx];
         const newSub = {
           ...old,
           id: `sub-${Date.now()}`,
@@ -91,6 +118,7 @@ export async function POST(
         };
         // old sub marked not current
         old.is_current = false;
+        old.status = 'Renewed' as any;
         cust.subscriptions.unshift(newSub);
         saveMockCustomer(cust);
       }

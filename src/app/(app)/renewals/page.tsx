@@ -19,16 +19,16 @@ export default function RenewalsPage() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [activeTab, setActiveTab] = useState<'all' | 'soon' | 'expired'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'urgent' | 'soon' | 'expired'>('all');
   const todayString = new Date().toISOString();
 
   const fetchRenewals = useCallback(async () => {
     setLoading(true);
     try {
-      // Fetch all customers with limit 500
+      // Fetch subscribers with sufficient limit so no renewal copies are missed
       const params = new URLSearchParams({
         paper: selectedPaper,
-        limit: '500',
+        limit: '5000',
       });
       const res = await fetch(`/api/customers?${params}`);
       const data = await res.json();
@@ -50,7 +50,14 @@ export default function RenewalsPage() {
 
     return customers.flatMap((c) => {
       const validSubs = (c.subscriptions || []).filter((s) => {
-        if (s.status === 'Staff' || s.status === 'Free' || s.status === 'Dropped') {
+        // Exclude staff, free, dropped, already renewed copies, or non-current subs
+        if (
+          s.status === 'Staff' ||
+          s.status === 'Free' ||
+          s.status === 'Dropped' ||
+          s.status === 'Renewed' ||
+          s.is_current === false
+        ) {
           return false;
         }
         if (!s.end_date) return false;
@@ -77,10 +84,22 @@ export default function RenewalsPage() {
     });
   }, [customers, todayString]);
 
+  // Aggregate Metrics (100% mathematically consistent and mutually exclusive)
+  const stats = useMemo(() => {
+    const urgent7d = renewalItems.filter((i) => i.isUrgent).length;
+    const soonCount = renewalItems.filter((i) => i.isSoon).length;
+    const expiredCount = renewalItems.filter((i) => i.isExpired).length;
+    const totalDue = renewalItems.length;
+    const total30d = urgent7d + soonCount;
+
+    return { totalDue, total30d, urgent7d, soonCount, expiredCount };
+  }, [renewalItems]);
+
   // Filter by search & activeTab
   const filteredItems = useMemo(() => {
     return renewalItems.filter((item) => {
       // Tab filter
+      if (activeTab === 'urgent' && !item.isUrgent) return false;
       if (activeTab === 'soon' && !item.isSoon) return false;
       if (activeTab === 'expired' && !item.isExpired) return false;
 
@@ -98,20 +117,10 @@ export default function RenewalsPage() {
     });
   }, [renewalItems, activeTab, search]);
 
-  // Aggregate Metrics
-  const stats = useMemo(() => {
-    const total30d = renewalItems.filter((i) => i.days >= 0 && i.days <= 30).length;
-    const urgent7d = renewalItems.filter((i) => i.isUrgent).length;
-    const expiredCount = renewalItems.filter((i) => i.isExpired).length;
-    const soonCount = renewalItems.filter((i) => i.isSoon).length;
-
-    return { total30d, urgent7d, expiredCount, soonCount };
-  }, [renewalItems]);
-
   const handleExportPDF = () => {
     const targetCustomers = filteredItems.map((i) => i.customer);
     generateCustomersPDF(targetCustomers, {
-      customTitle: `Renewals Due Report (30-Day Window) - ${activeTab.toUpperCase()}`,
+      customTitle: `Renewals Due Report - ${activeTab.toUpperCase()}`,
       filterLabel: `Tab: ${activeTab} | Newspaper: ${selectedPaper}`,
     });
   };
@@ -151,7 +160,7 @@ export default function RenewalsPage() {
               Renewals & Expiry Hub
             </h1>
             <span className="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-bold px-2.5 py-0.5 rounded-full border border-purple-200 dark:border-purple-800">
-              30-Day Window (1 Month)
+              30-Day Window ({stats.total30d})
             </span>
           </div>
           <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -182,35 +191,58 @@ export default function RenewalsPage() {
         </div>
       </div>
 
-      {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-        {/* Total in 30-Day Window */}
+      {/* KPI Cards Grid: 4 Mutually Consistent Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {/* Total Due */}
         <div
           onClick={() => setActiveTab('all')}
           className={`card p-4 cursor-pointer transition-all ${
             activeTab === 'all'
-              ? 'ring-2 ring-purple-600 bg-purple-50/50 dark:bg-purple-950/30'
+              ? 'ring-2 ring-purple-600 bg-purple-50/60 dark:bg-purple-950/40 shadow-xs'
               : 'hover:border-purple-300 dark:hover:border-purple-700'
           }`}
         >
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-gray-500 dark:text-purple-300 uppercase tracking-wider">
-              30-Day Window
+              All Due
             </span>
-            <Clock className="w-4 h-4 text-purple-600" />
+            <RefreshCw className="w-4 h-4 text-purple-600" />
           </div>
           <p className="text-2xl sm:text-3xl font-extrabold text-purple-900 dark:text-purple-100 font-mono">
-            {stats.total30d}
+            {stats.totalDue}
           </p>
-          <p className="text-[11px] text-gray-500 dark:text-purple-300 mt-1">Expiring within 30 days</p>
+          <p className="text-[11px] text-gray-500 dark:text-purple-300 mt-1">
+            Window ({stats.total30d}) + Expired ({stats.expiredCount})
+          </p>
         </div>
 
-        {/* Expiring Soon (8 - 30 Days) */}
+        {/* Urgent (0–7 Days) */}
+        <div
+          onClick={() => setActiveTab('urgent')}
+          className={`card p-4 cursor-pointer transition-all ${
+            activeTab === 'urgent'
+              ? 'ring-2 ring-rose-500 bg-rose-50/60 dark:bg-rose-950/40 shadow-xs'
+              : 'hover:border-rose-300 dark:hover:border-rose-700'
+          }`}
+        >
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">
+              Urgent (0–7 Days)
+            </span>
+            <AlertCircle className="w-4 h-4 text-rose-500" />
+          </div>
+          <p className="text-2xl sm:text-3xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">
+            {stats.urgent7d}
+          </p>
+          <p className="text-[11px] text-rose-600/80 dark:text-rose-400 mt-1">Expiring this week</p>
+        </div>
+
+        {/* Soon (8–30 Days) */}
         <div
           onClick={() => setActiveTab('soon')}
           className={`card p-4 cursor-pointer transition-all ${
             activeTab === 'soon'
-              ? 'ring-2 ring-amber-500 bg-amber-50/50 dark:bg-amber-950/30'
+              ? 'ring-2 ring-amber-500 bg-amber-50/60 dark:bg-amber-950/40 shadow-xs'
               : 'hover:border-amber-300 dark:hover:border-amber-700'
           }`}
         >
@@ -223,20 +255,20 @@ export default function RenewalsPage() {
           <p className="text-2xl sm:text-3xl font-extrabold text-amber-600 dark:text-amber-400 font-mono">
             {stats.soonCount}
           </p>
-          <p className="text-[11px] text-amber-600 dark:text-amber-400 mt-1">First reminder sent</p>
+          <p className="text-[11px] text-amber-600/80 dark:text-amber-400 mt-1">First reminder window</p>
         </div>
 
-        {/* Already Expired */}
+        {/* Expired */}
         <div
           onClick={() => setActiveTab('expired')}
           className={`card p-4 cursor-pointer transition-all ${
             activeTab === 'expired'
-              ? 'ring-2 ring-gray-600 bg-gray-50/80 dark:bg-gray-800/40'
+              ? 'ring-2 ring-gray-600 bg-gray-100 dark:bg-gray-800/60 shadow-xs'
               : 'hover:border-gray-400 dark:hover:border-gray-600'
           }`}
         >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <span className="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
               Expired
             </span>
             <AlertTriangle className="w-4 h-4 text-gray-500" />
@@ -261,7 +293,17 @@ export default function RenewalsPage() {
                   : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
               }`}
             >
-              All Due ({renewalItems.length})
+              All Due ({stats.totalDue})
+            </button>
+            <button
+              onClick={() => setActiveTab('urgent')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                activeTab === 'urgent'
+                  ? 'bg-rose-600 text-white shadow-xs'
+                  : 'text-gray-600 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400'
+              }`}
+            >
+              0–7 Days ({stats.urgent7d})
             </button>
             <button
               onClick={() => setActiveTab('soon')}
@@ -331,6 +373,7 @@ export default function RenewalsPage() {
                 key={`${item.customer.id}-${item.sub.id || index}`}
                 customer={item.customer}
                 todayString={todayString}
+                onRenewed={fetchRenewals}
               />
             ))}
           </div>

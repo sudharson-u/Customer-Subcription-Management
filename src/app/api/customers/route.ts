@@ -91,7 +91,12 @@ export async function GET(request: Request) {
   // Flatten subscriptions into discrete circulation records so every copy is accounted for without data loss
   const expandedList: any[] = [];
   customers.forEach((c) => {
-    const subs = c.subscriptions || [];
+    const allSubs = c.subscriptions || [];
+    // Only current, non-renewed subscriptions represent active circulation copies
+    const currentSubs = allSubs.filter((s: any) => s.is_current !== false && s.status !== 'Renewed');
+    // If a customer has no active/current subscriptions, keep the latest one or empty
+    const subs = currentSubs.length > 0 ? currentSubs : (allSubs.length > 0 ? [allSubs[0]] : []);
+
     if (subs.length === 0) {
       expandedList.push({
         ...c,
