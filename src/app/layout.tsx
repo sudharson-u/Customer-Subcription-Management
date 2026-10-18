@@ -55,7 +55,7 @@ export default function RootLayout({
       <head>
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
-      <body className="antialiased min-h-screen">
+      <body className="antialiased min-h-screen" suppressHydrationWarning>
         <ThemeProvider>
           <NewspaperFilterProvider>
             {children}

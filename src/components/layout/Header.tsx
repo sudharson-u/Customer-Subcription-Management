@@ -151,7 +151,7 @@ export default function Header({ user }: HeaderProps) {
         <div className="hidden 2xl:block h-7 w-px bg-purple-200 dark:bg-purple-900/60 mr-3 flex-shrink-0" />
 
         {/* Global Newspaper Switcher Pills */}
-        <div className="flex items-center flex-shrink-0">
+        <div className="flex items-center min-w-0 max-w-[210px] sm:max-w-none flex-shrink overflow-x-auto no-scrollbar">
           <NewspaperFilterPills />
         </div>
 
@@ -177,7 +177,7 @@ export default function Header({ user }: HeaderProps) {
         </div>
 
         {/* Header Right Actions */}
-        <div className="flex items-center gap-1.5 sm:gap-2 ml-auto flex-shrink-0">
+        <div className="flex items-center gap-1 sm:gap-2 ml-auto flex-shrink-0 pr-1 sm:pr-0">
           {/* Install PWA Button */}
           <InstallPwaButton className="hidden md:inline-flex" />
 
@@ -201,7 +201,7 @@ export default function Header({ user }: HeaderProps) {
             <button
               id="user-menu-btn"
               onClick={() => setShowUserMenu(!showUserMenu)}
-              className="flex items-center gap-1.5 sm:gap-2 pl-1.5 pr-2 sm:pr-2.5 py-1 rounded-xl hover:bg-purple-100/50 dark:hover:bg-purple-900/40 border border-transparent hover:border-purple-200 dark:hover:border-purple-800 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 sm:gap-2 p-1 sm:pl-1.5 sm:pr-2.5 rounded-xl hover:bg-purple-100/50 dark:hover:bg-purple-900/40 border border-transparent hover:border-purple-200 dark:hover:border-purple-800 transition-colors cursor-pointer mr-0.5 sm:mr-0"
             >
               <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-indigo-700 rounded-full flex items-center justify-center flex-shrink-0 text-white font-extrabold text-xs shadow-md border border-purple-300">
                 U
@@ -215,8 +215,8 @@ export default function Header({ user }: HeaderProps) {
             {showUserMenu && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setShowUserMenu(false)} />
-                <div className="absolute right-0 sm:right-1 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-1.25rem)] bg-white dark:bg-[#150A2E] border border-purple-200 dark:border-[#2C185A] rounded-2xl shadow-2xl z-50 py-2 overflow-hidden fade-in">
-                  <div className="px-4 py-3 border-b border-purple-100 dark:border-[#2C185A]">
+                <div className="fixed right-3 sm:absolute sm:right-0 top-16 sm:top-full mt-1.5 sm:mt-2 w-[calc(100vw-1.5rem)] sm:w-80 max-w-[340px] bg-white dark:bg-[#150A2E] border border-purple-200 dark:border-[#2C185A] rounded-2xl shadow-2xl z-50 py-2 overflow-hidden fade-in">
+                  <div className="px-5 py-3 border-b border-purple-100 dark:border-[#2C185A]">
                     <p className="text-sm font-bold text-gray-900 dark:text-white">Umapathy</p>
                     <p className="text-xs text-purple-600 dark:text-purple-300 font-mono truncate">{user?.email || 'ukss61925@gmail.com'}</p>
                     <div className="flex items-center gap-1.5 mt-2">
@@ -227,22 +227,24 @@ export default function Header({ user }: HeaderProps) {
                   </div>
 
                   {/* Integrated Push Notifications Toggle */}
-                  <div className="px-4 py-2.5 border-b border-purple-100 dark:border-[#2C185A] flex items-center justify-between gap-3 text-xs text-gray-700 dark:text-purple-200">
+                  <div className="px-5 py-2.5 border-b border-purple-100 dark:border-[#2C185A] flex items-center justify-between gap-3 text-xs text-gray-700 dark:text-purple-200">
                     <span className="font-medium">Device Push Alerts</span>
-                    <PushNotificationToggle />
+                    <div className="flex-shrink-0 mr-0.5">
+                      <PushNotificationToggle />
+                    </div>
                   </div>
 
-                  <div className="px-4 py-2.5 border-b border-purple-100 dark:border-[#2C185A] text-xs text-gray-600 dark:text-purple-300 flex items-center justify-between">
+                  <div className="px-5 py-2.5 border-b border-purple-100 dark:border-[#2C185A] text-xs text-gray-600 dark:text-purple-300 flex items-center justify-between">
                     <span className="flex items-center gap-2">
                       <Smartphone className="w-4 h-4 text-emerald-500" /> Active Session
                     </span>
-                    <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">Online</span>
+                    <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800 flex-shrink-0 mr-0.5">Online</span>
                   </div>
 
                   <Link
                     href="/settings"
                     onClick={() => setShowUserMenu(false)}
-                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-xs font-semibold text-gray-700 dark:text-purple-200 hover:bg-purple-50 dark:hover:bg-purple-900/40 transition-colors"
+                    className="w-full flex items-center gap-2.5 px-5 py-2.5 text-xs font-semibold text-gray-700 dark:text-purple-200 hover:bg-purple-50 dark:hover:bg-purple-900/40 transition-colors"
                   >
                     <Shield className="w-4 h-4 text-purple-500" />
                     Security & Active Devices
@@ -251,7 +253,7 @@ export default function Header({ user }: HeaderProps) {
                   <button
                     id="sign-out-btn"
                     onClick={handleSignOut}
-                    className="w-full flex items-center gap-2.5 px-4 py-2.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                    className="w-full flex items-center gap-2.5 px-5 py-2.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
                   >
                     <LogOut className="w-4 h-4" />
                     Sign Out
