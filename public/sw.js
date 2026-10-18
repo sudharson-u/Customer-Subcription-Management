@@ -1,12 +1,8 @@
 // Hindu Subscription Portal - Service Worker (PWA & Web Push)
-const CACHE_NAME = 'hindu-pwa-v1';
+const CACHE_NAME = 'hindu-pwa-v2';
 const PRECACHE_ASSETS = [
-  '/',
   '/manifest.json',
   '/favicon.ico',
-  '/logo.png',
-  '/icon-192.png',
-  '/icon-512.png',
   '/offline.html',
 ];
 
@@ -14,7 +10,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(PRECACHE_ASSETS).catch((err) => {
-        console.warn('Pre-caching some assets failed:', err);
+        console.warn('Pre-caching offline assets failed:', err);
       });
     }).then(() => self.skipWaiting())
   );
@@ -30,47 +26,31 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Fetch event: ONLY handle offline fallback for document navigation.
+// NEVER intercept or cache Next.js chunks, CSS, or JS files to avoid FOUC or style breaking.
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
+  // Let browser natively handle all Next.js assets, scripts, stylesheets, and APIs
   const url = new URL(event.request.url);
-
-  // If requesting static assets (images, icons, fonts)
   if (
-    url.pathname.startsWith('/_next/static/') ||
-    url.pathname.match(/\.(png|jpg|jpeg|svg|ico|woff2?|css|js)$/)
+    url.pathname.startsWith('/_next/') ||
+    url.pathname.startsWith('/api/') ||
+    url.pathname.match(/\.(css|js|map|json)$/)
   ) {
-    event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        if (cachedResponse) return cachedResponse;
-        return fetch(event.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            const clone = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-          }
-          return networkResponse;
-        });
-      })
-    );
     return;
   }
 
-  // Network-first for HTML pages and APIs
-  event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
-        return networkResponse;
-      })
-      .catch(() => {
-        return caches.match(event.request).then((cached) => {
-          if (cached) return cached;
-          if (event.request.mode === 'navigate') {
-            return caches.match('/offline.html');
-          }
-          return new Response('Network unavailable', { status: 503, statusText: 'Service Unavailable' });
+  // Only handle HTML navigation requests for offline page fallback
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match('/offline.html').then((cached) => {
+          return cached || new Response('Offline - No connection', { status: 503, statusText: 'Service Unavailable' });
         });
       })
-  );
+    );
+  }
 });
 
 // Push Notifications

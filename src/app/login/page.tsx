@@ -88,7 +88,14 @@ export default function LoginPage() {
           {/* Brand header */}
           <div className="text-center mb-6">
             <div className="flex justify-center mb-3">
-              <img src="/logo.png" alt="Hindu Logo" className="h-14 sm:h-16 w-auto drop-shadow-xl object-contain" />
+              <img
+                src="/logo.png"
+                alt="Hindu Logo"
+                width={220}
+                height={64}
+                style={{ maxHeight: 64, width: 'auto', objectFit: 'contain' }}
+                className="h-14 sm:h-16 w-auto drop-shadow-xl object-contain"
+              />
             </div>
             <p className="text-xs text-purple-200/90 font-medium">Subscription & Circulation Portal</p>
             <div className="flex items-center justify-center gap-1.5 mt-2 text-xs text-amber-300 font-semibold">

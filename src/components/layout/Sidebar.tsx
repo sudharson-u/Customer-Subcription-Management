@@ -63,8 +63,18 @@ export default function Sidebar() {
         )}>
           {/* Official Logo Container */}
           <Link href="/dashboard" className="flex items-center gap-3 min-w-0">
-            <div className="flex-shrink-0 w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center p-0.5 bg-gradient-to-br from-purple-900 to-purple-950 border border-purple-500/30 shadow-md">
-              <img src="/logo_icon.png" alt="Hindu Logo" className="w-full h-full object-contain" />
+            <div
+              style={{ width: 40, height: 40, minWidth: 40, minHeight: 40, overflow: 'hidden' }}
+              className="flex-shrink-0 w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center p-0.5 bg-gradient-to-br from-purple-900 to-purple-950 border border-purple-500/30 shadow-md"
+            >
+              <img
+                src="/logo_icon.png"
+                alt="Hindu Logo"
+                width={40}
+                height={40}
+                style={{ width: 40, height: 40, maxWidth: 40, maxHeight: 40, objectFit: 'contain' }}
+                className="w-full h-full object-contain"
+              />
             </div>
             {!collapsed && (
               <div className="min-w-0">

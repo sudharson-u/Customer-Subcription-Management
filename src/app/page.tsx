@@ -38,8 +38,18 @@ export default async function LandingPage() {
       <header className="border-b border-purple-900/50 backdrop-blur-md sticky top-0 z-40 bg-[#1B0B3B]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl overflow-hidden p-0.5 bg-purple-900/60 border border-purple-500/30 flex items-center justify-center">
-              <img src="/logo_icon.png" alt="Hindu Logo" className="w-full h-full object-contain" />
+            <div
+              style={{ width: 40, height: 40, overflow: 'hidden' }}
+              className="w-10 h-10 rounded-xl overflow-hidden p-0.5 bg-purple-900/60 border border-purple-500/30 flex items-center justify-center flex-shrink-0"
+            >
+              <img
+                src="/logo_icon.png"
+                alt="Hindu Logo"
+                width={40}
+                height={40}
+                style={{ width: 40, height: 40, objectFit: 'contain' }}
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
@@ -71,7 +81,14 @@ export default async function LandingPage() {
 
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="mb-6 flex justify-center">
-            <img src="/logo.png" alt="Hindu" className="h-16 sm:h-20 w-auto drop-shadow-2xl object-contain" />
+            <img
+              src="/logo.png"
+              alt="Hindu"
+              width={260}
+              height={80}
+              style={{ maxHeight: 80, width: 'auto', objectFit: 'contain' }}
+              className="h-16 sm:h-20 w-auto drop-shadow-2xl object-contain"
+            />
           </div>
 
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-900/60 border border-purple-500/30 text-xs font-semibold text-purple-200 mb-6 backdrop-blur-md">
