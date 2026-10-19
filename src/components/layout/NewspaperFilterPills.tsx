@@ -9,30 +9,43 @@ export type NewspaperFilter = NewspaperCode | 'ALL';
 interface NewspaperFilterContextType {
   selectedPaper: NewspaperFilter;
   setSelectedPaper: (paper: NewspaperFilter) => void;
+  isHydrated: boolean;
 }
 
 const NewspaperFilterContext = createContext<NewspaperFilterContextType>({
   selectedPaper: 'ALL',
   setSelectedPaper: () => {},
+  isHydrated: false,
 });
 
 export function NewspaperFilterProvider({ children }: { children: React.ReactNode }) {
   const [selectedPaper, setSelectedPaperState] = useState<NewspaperFilter>('ALL');
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('hindu-active-paper') as NewspaperFilter;
-    if (saved && (saved === 'ALL' || saved in NEWSPAPERS_META)) {
-      setSelectedPaperState(saved);
+    try {
+      const saved = localStorage.getItem('hindu-active-paper') as NewspaperFilter;
+      if (saved && (saved === 'ALL' || saved in NEWSPAPERS_META)) {
+        setSelectedPaperState(saved);
+      }
+    } catch {
+      // ignore storage access errors
+    } finally {
+      setIsHydrated(true);
     }
   }, []);
 
   const setSelectedPaper = (paper: NewspaperFilter) => {
-    localStorage.setItem('hindu-active-paper', paper);
+    try {
+      localStorage.setItem('hindu-active-paper', paper);
+    } catch {
+      // ignore
+    }
     setSelectedPaperState(paper);
   };
 
   return (
-    <NewspaperFilterContext.Provider value={{ selectedPaper, setSelectedPaper }}>
+    <NewspaperFilterContext.Provider value={{ selectedPaper, setSelectedPaper, isHydrated }}>
       {children}
     </NewspaperFilterContext.Provider>
   );
@@ -54,7 +67,7 @@ export default function NewspaperFilterPills({ className }: { className?: string
   ];
 
   return (
-    <div className={cn('flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1', className)}>
+    <div className={cn('flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-1', className)}>
       {options.map((opt) => {
         const isSelected = selectedPaper === opt.code;
         return (
@@ -63,7 +76,7 @@ export default function NewspaperFilterPills({ className }: { className?: string
             type="button"
             onClick={() => setSelectedPaper(opt.code)}
             className={cn(
-              'px-2.5 py-1 text-xs font-bold rounded-lg border transition-all cursor-pointer whitespace-nowrap',
+              'px-2 sm:px-2.5 py-1 text-[11px] sm:text-xs font-bold rounded-lg border transition-all cursor-pointer whitespace-nowrap',
               isSelected
                 ? 'bg-purple-600 border-purple-600 text-white shadow-xs'
                 : 'bg-white/80 dark:bg-purple-950/40 border-gray-200 dark:border-purple-900/60 text-gray-700 dark:text-purple-200 hover:border-purple-400'

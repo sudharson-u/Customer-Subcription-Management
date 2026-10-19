@@ -17,7 +17,7 @@ const PAGE_SIZE = 20;
 
 export default function CustomersPage() {
   const searchParams = useSearchParams();
-  const { selectedPaper, setSelectedPaper } = useNewspaperFilter();
+  const { selectedPaper, setSelectedPaper, isHydrated } = useNewspaperFilter();
 
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [total, setTotal] = useState(0);
@@ -47,7 +47,7 @@ export default function CustomersPage() {
         limit: String(PAGE_SIZE),
       });
 
-      const res = await fetch(`/api/customers?${params}`);
+      const res = await fetch(`/api/customers?${params}`, { cache: 'no-store' });
       const data = await res.json();
       setCustomers(data.customers || []);
       setTotal(data.total || 0);
@@ -68,10 +68,11 @@ export default function CustomersPage() {
   }, [search, selectedPaper, statusFilter, sortBy, sortDir, page]);
 
   useEffect(() => {
+    if (!isHydrated) return;
     clearTimeout(searchTimeout.current);
     searchTimeout.current = setTimeout(fetchCustomers, 120);
     return () => clearTimeout(searchTimeout.current);
-  }, [fetchCustomers]);
+  }, [fetchCustomers, isHydrated]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {

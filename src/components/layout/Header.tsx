@@ -151,7 +151,7 @@ export default function Header({ user }: HeaderProps) {
         <div className="hidden 2xl:block h-7 w-px bg-purple-200 dark:bg-purple-900/60 mr-3 flex-shrink-0" />
 
         {/* Global Newspaper Switcher Pills */}
-        <div className="flex items-center min-w-0 max-w-[210px] sm:max-w-none flex-shrink overflow-x-auto no-scrollbar">
+        <div className="flex items-center min-w-0 flex-shrink overflow-x-auto no-scrollbar">
           <NewspaperFilterPills />
         </div>
 

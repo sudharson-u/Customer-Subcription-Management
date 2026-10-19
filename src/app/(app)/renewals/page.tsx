@@ -15,14 +15,14 @@ import { generateCustomersPDF } from '@/lib/pdfGenerator';
 import { useNewspaperFilter } from '@/components/layout/NewspaperFilterPills';
 
 export default function RenewalsPage() {
-  const { selectedPaper } = useNewspaperFilter();
+  const { selectedPaper, isHydrated } = useNewspaperFilter();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [activeTab, setActiveTab] = useState<'all' | 'urgent' | 'soon' | 'expired'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'soon' | 'expired'>('all');
   const todayString = new Date().toISOString();
 
-  const fetchRenewals = useCallback(async () => {
+  const fetchRenewals = useCallback(async (signal?: AbortSignal) => {
     setLoading(true);
     try {
       // Fetch subscribers with sufficient limit so no renewal copies are missed
@@ -30,19 +30,30 @@ export default function RenewalsPage() {
         paper: selectedPaper,
         limit: '5000',
       });
-      const res = await fetch(`/api/customers?${params}`);
+      const res = await fetch(`/api/customers?${params}`, {
+        signal,
+        cache: 'no-store',
+      });
+      if (!res.ok) throw new Error('Failed to fetch renewals');
       const data = await res.json();
       setCustomers(data.customers || []);
-    } catch {
-      setCustomers([]);
+    } catch (err: any) {
+      if (err?.name !== 'AbortError') {
+        setCustomers([]);
+      }
     } finally {
       setLoading(false);
     }
   }, [selectedPaper]);
 
   useEffect(() => {
-    fetchRenewals();
-  }, [fetchRenewals]);
+    if (!isHydrated) return;
+    const controller = new AbortController();
+    fetchRenewals(controller.signal);
+    return () => {
+      controller.abort();
+    };
+  }, [fetchRenewals, isHydrated]);
 
   // Filter only customers who have active or expiring subscriptions in the 30-day window or expired
   const renewalItems = useMemo(() => {
@@ -76,8 +87,7 @@ export default function RenewalsPage() {
           },
           sub,
           days,
-          isUrgent: days >= 0 && days <= 7,
-          isSoon: days > 7 && days <= 30,
+          isSoon: days >= 0 && days <= 30,
           isExpired: days < 0,
         };
       });
@@ -86,27 +96,24 @@ export default function RenewalsPage() {
 
   // Aggregate Metrics (100% mathematically consistent and mutually exclusive)
   const stats = useMemo(() => {
-    const urgent7d = renewalItems.filter((i) => i.isUrgent).length;
     const soonCount = renewalItems.filter((i) => i.isSoon).length;
     const expiredCount = renewalItems.filter((i) => i.isExpired).length;
     const totalDue = renewalItems.length;
-    const total30d = urgent7d + soonCount;
 
-    return { totalDue, total30d, urgent7d, soonCount, expiredCount };
+    return { totalDue, soonCount, expiredCount };
   }, [renewalItems]);
 
   // Filter by search & activeTab
   const filteredItems = useMemo(() => {
     return renewalItems.filter((item) => {
       // Tab filter
-      if (activeTab === 'urgent' && !item.isUrgent) return false;
       if (activeTab === 'soon' && !item.isSoon) return false;
       if (activeTab === 'expired' && !item.isExpired) return false;
 
       // Search filter
       if (search.trim()) {
         const q = search.toLowerCase();
-        const nameMatch = item.customer.customer_name.toLowerCase().includes(q);
+        const nameMatch = item.customer.customer_name?.toLowerCase().includes(q);
         const mobileMatch = item.customer.mobile_number?.includes(q);
         const addrMatch = item.customer.address?.toLowerCase().includes(q);
         const orderMatch = item.sub.order_no?.toLowerCase().includes(q);
@@ -160,7 +167,7 @@ export default function RenewalsPage() {
               Renewals & Expiry Hub
             </h1>
             <span className="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-bold px-2.5 py-0.5 rounded-full border border-purple-200 dark:border-purple-800">
-              30-Day Window ({stats.total30d})
+              30-Day Window ({stats.soonCount})
             </span>
           </div>
           <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -191,8 +198,8 @@ export default function RenewalsPage() {
         </div>
       </div>
 
-      {/* KPI Cards Grid: 4 Mutually Consistent Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      {/* KPI Cards Grid: 3 Clean Mutually Consistent Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {/* Total Due */}
         <div
           onClick={() => setActiveTab('all')}
@@ -212,32 +219,11 @@ export default function RenewalsPage() {
             {stats.totalDue}
           </p>
           <p className="text-[11px] text-gray-500 dark:text-purple-300 mt-1">
-            Window ({stats.total30d}) + Expired ({stats.expiredCount})
+            Window ({stats.soonCount}) + Expired ({stats.expiredCount})
           </p>
         </div>
 
-        {/* Urgent (0–7 Days) */}
-        <div
-          onClick={() => setActiveTab('urgent')}
-          className={`card p-4 cursor-pointer transition-all ${
-            activeTab === 'urgent'
-              ? 'ring-2 ring-rose-500 bg-rose-50/60 dark:bg-rose-950/40 shadow-xs'
-              : 'hover:border-rose-300 dark:hover:border-rose-700'
-          }`}
-        >
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">
-              Urgent (0–7 Days)
-            </span>
-            <AlertCircle className="w-4 h-4 text-rose-500" />
-          </div>
-          <p className="text-2xl sm:text-3xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">
-            {stats.urgent7d}
-          </p>
-          <p className="text-[11px] text-rose-600/80 dark:text-rose-400 mt-1">Expiring this week</p>
-        </div>
-
-        {/* Soon (8–30 Days) */}
+        {/* 30-Day Window */}
         <div
           onClick={() => setActiveTab('soon')}
           className={`card p-4 cursor-pointer transition-all ${
@@ -248,14 +234,14 @@ export default function RenewalsPage() {
         >
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
-              Soon (8–30 Days)
+              30-Day Window
             </span>
             <Clock className="w-4 h-4 text-amber-500" />
           </div>
           <p className="text-2xl sm:text-3xl font-extrabold text-amber-600 dark:text-amber-400 font-mono">
             {stats.soonCount}
           </p>
-          <p className="text-[11px] text-amber-600/80 dark:text-amber-400 mt-1">First reminder window</p>
+          <p className="text-[11px] text-amber-600/80 dark:text-amber-400 mt-1">Expiring within 30 days</p>
         </div>
 
         {/* Expired */}
@@ -296,16 +282,6 @@ export default function RenewalsPage() {
               All Due ({stats.totalDue})
             </button>
             <button
-              onClick={() => setActiveTab('urgent')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                activeTab === 'urgent'
-                  ? 'bg-rose-600 text-white shadow-xs'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-rose-600 dark:hover:text-rose-400'
-              }`}
-            >
-              0–7 Days ({stats.urgent7d})
-            </button>
-            <button
               onClick={() => setActiveTab('soon')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 activeTab === 'soon'
@@ -313,7 +289,7 @@ export default function RenewalsPage() {
                   : 'text-gray-600 dark:text-gray-300 hover:text-amber-500'
               }`}
             >
-              8–30 Days ({stats.soonCount})
+              30-Day Window ({stats.soonCount})
             </button>
             <button
               onClick={() => setActiveTab('expired')}
