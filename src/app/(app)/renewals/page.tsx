@@ -12,10 +12,10 @@ import {
 } from '@/lib/utils';
 import RenewalCustomerCard from '@/components/renewals/RenewalCustomerCard';
 import { generateCustomersPDF } from '@/lib/pdfGenerator';
-import { useNewspaperFilter } from '@/components/layout/NewspaperFilterPills';
+import { useNewspaperFilter, NewspaperFilter } from '@/components/layout/NewspaperFilterPills';
 
 export default function RenewalsPage() {
-  const { selectedPaper, isHydrated } = useNewspaperFilter();
+  const { selectedPaper, setSelectedPaper } = useNewspaperFilter();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -25,12 +25,8 @@ export default function RenewalsPage() {
   const fetchRenewals = useCallback(async (signal?: AbortSignal) => {
     setLoading(true);
     try {
-      // Fetch subscribers with sufficient limit so no renewal copies are missed
-      const params = new URLSearchParams({
-        paper: selectedPaper,
-        limit: '5000',
-      });
-      const res = await fetch(`/api/customers?${params}`, {
+      // Fetch all circulation subscriptions across all papers so count is 100% comprehensive and matches dashboard
+      const res = await fetch('/api/customers?limit=5000', {
         signal,
         cache: 'no-store',
       });
@@ -44,19 +40,18 @@ export default function RenewalsPage() {
     } finally {
       setLoading(false);
     }
-  }, [selectedPaper]);
+  }, []);
 
   useEffect(() => {
-    if (!isHydrated) return;
     const controller = new AbortController();
     fetchRenewals(controller.signal);
     return () => {
       controller.abort();
     };
-  }, [fetchRenewals, isHydrated]);
+  }, [fetchRenewals]);
 
   // Filter only customers who have active or expiring subscriptions in the 30-day window or expired
-  const renewalItems = useMemo(() => {
+  const allRenewalItems = useMemo(() => {
     const today = new Date(todayString);
 
     return customers.flatMap((c) => {
@@ -94,18 +89,45 @@ export default function RenewalsPage() {
     });
   }, [customers, todayString]);
 
+  // Publication breakdown counts across all renewals
+  const paperStats = useMemo(() => {
+    const counts: Record<string, number> = {
+      ALL: allRenewalItems.length,
+      THE_HINDU: 0,
+      DINAMALAR: 0,
+      NIE_DIN: 0,
+      DINAKARAN: 0,
+    };
+    allRenewalItems.forEach((i) => {
+      const code = i.sub.newspaper?.code || (i.sub as any).newspaper || 'THE_HINDU';
+      if (counts[code] !== undefined) {
+        counts[code]++;
+      }
+    });
+    return counts;
+  }, [allRenewalItems]);
+
+  // Filter by selected publication (defaults to 'ALL')
+  const activeRenewalItems = useMemo(() => {
+    if (!selectedPaper || selectedPaper === 'ALL') return allRenewalItems;
+    return allRenewalItems.filter((i) => {
+      const code = i.sub.newspaper?.code || (i.sub as any).newspaper || 'THE_HINDU';
+      return code === selectedPaper;
+    });
+  }, [allRenewalItems, selectedPaper]);
+
   // Aggregate Metrics (100% mathematically consistent and mutually exclusive)
   const stats = useMemo(() => {
-    const soonCount = renewalItems.filter((i) => i.isSoon).length;
-    const expiredCount = renewalItems.filter((i) => i.isExpired).length;
-    const totalDue = renewalItems.length;
+    const soonCount = activeRenewalItems.filter((i) => i.isSoon).length;
+    const expiredCount = activeRenewalItems.filter((i) => i.isExpired).length;
+    const totalDue = activeRenewalItems.length;
 
     return { totalDue, soonCount, expiredCount };
-  }, [renewalItems]);
+  }, [activeRenewalItems]);
 
   // Filter by search & activeTab
   const filteredItems = useMemo(() => {
-    return renewalItems.filter((item) => {
+    return activeRenewalItems.filter((item) => {
       // Tab filter
       if (activeTab === 'soon' && !item.isSoon) return false;
       if (activeTab === 'expired' && !item.isExpired) return false;
@@ -122,7 +144,7 @@ export default function RenewalsPage() {
 
       return true;
     });
-  }, [renewalItems, activeTab, search]);
+  }, [activeRenewalItems, activeTab, search]);
 
   const handleExportPDF = () => {
     const targetCustomers = filteredItems.map((i) => i.customer);
@@ -196,6 +218,34 @@ export default function RenewalsPage() {
             <span>Export CSV</span>
           </button>
         </div>
+      </div>
+
+      {/* Publication Breakdown Switcher Pills */}
+      <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1">
+        {[
+          { code: 'ALL' as const, label: `All Papers (${paperStats.ALL})` },
+          { code: 'THE_HINDU' as const, label: `The Hindu (${paperStats.THE_HINDU})` },
+          { code: 'DINAMALAR' as const, label: `Dinamalar (${paperStats.DINAMALAR})` },
+          { code: 'NIE_DIN' as const, label: `NIE / DIN (${paperStats.NIE_DIN})` },
+          { code: 'DINAKARAN' as const, label: `Dinakaran (${paperStats.DINAKARAN})` },
+        ].map((opt) => {
+          const isSelected = (selectedPaper || 'ALL') === opt.code;
+          return (
+            <button
+              key={opt.code}
+              type="button"
+              onClick={() => setSelectedPaper(opt.code)}
+              className={cn(
+                'px-3 py-1.5 text-xs font-bold rounded-xl border transition-all cursor-pointer whitespace-nowrap',
+                isSelected
+                  ? 'bg-purple-600 border-purple-600 text-white shadow-xs'
+                  : 'bg-white dark:bg-purple-950/40 border-purple-100 dark:border-purple-900/60 text-gray-700 dark:text-purple-200 hover:border-purple-300'
+              )}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* KPI Cards Grid: 3 Clean Mutually Consistent Cards */}

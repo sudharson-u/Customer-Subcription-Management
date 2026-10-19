@@ -20,27 +20,18 @@ const NewspaperFilterContext = createContext<NewspaperFilterContextType>({
 
 export function NewspaperFilterProvider({ children }: { children: React.ReactNode }) {
   const [selectedPaper, setSelectedPaperState] = useState<NewspaperFilter>('ALL');
-  const [isHydrated, setIsHydrated] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(true);
 
+  // Clear legacy persistent filter to ensure circulation hubs always default to ALL 4 papers
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('hindu-active-paper') as NewspaperFilter;
-      if (saved && (saved === 'ALL' || saved in NEWSPAPERS_META)) {
-        setSelectedPaperState(saved);
-      }
+      localStorage.removeItem('hindu-active-paper');
     } catch {
-      // ignore storage access errors
-    } finally {
-      setIsHydrated(true);
+      // ignore
     }
   }, []);
 
   const setSelectedPaper = (paper: NewspaperFilter) => {
-    try {
-      localStorage.setItem('hindu-active-paper', paper);
-    } catch {
-      // ignore
-    }
     setSelectedPaperState(paper);
   };
 
