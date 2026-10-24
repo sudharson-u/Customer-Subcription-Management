@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
@@ -6,29 +7,38 @@ import Header from '@/components/layout/Header';
 import Link from 'next/link';
 import { LayoutDashboard, Users, RefreshCw, Bell, FileText } from 'lucide-react';
 
+const getAuthUser = cache(async () => {
+  const cookieStore = await cookies();
+  const hasDemo = cookieStore.get('demo_session')?.value === 'true';
+
+  if (hasDemo) {
+    return {
+      id: 'admin-umapathy-id',
+      email: 'ukss61925@gmail.com',
+      user_metadata: { name: 'Umapathy' },
+    };
+  }
+
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createClient();
+      const { data } = await supabase.auth.getUser();
+      return data?.user || null;
+    } catch {
+      return null;
+    }
+  }
+
+  return null;
+});
+
 export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  let user: any = null;
-  const cookieStore = await cookies();
-  const hasDemo = cookieStore.get('demo_session')?.value === 'true';
-
-  if (hasDemo) {
-    user = {
-      id: 'admin-umapathy-id',
-      email: 'ukss61925@gmail.com',
-      user_metadata: { name: 'Umapathy' },
-    };
-  } else if (isSupabaseConfigured()) {
-    const supabase = await createClient();
-    const { data } = await supabase.auth.getUser();
-    user = data.user;
-    if (!user) {
-      redirect('/login');
-    }
-  } else {
+  const user = await getAuthUser();
+  if (!user) {
     redirect('/login');
   }
 

@@ -3,6 +3,7 @@ import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { TABLES } from '@/lib/supabase/tables';
 import { getMockCustomers, saveMockCustomer, deleteMockCustomer } from '@/lib/mockData';
 import { sanitizePhone } from '@/lib/utils';
+import { invalidateServerCustomerCache } from '@/lib/dataCache';
 
 export async function GET(
   request: Request,
@@ -178,6 +179,7 @@ export async function PUT(
         new_value: { customer_name, mobile_number: cleanPhone, address, street_area, subscriptions_count: subscriptions?.length },
       });
 
+      invalidateServerCustomerCache();
       return NextResponse.json({ success: true, customer: updated });
     } catch (err: any) {
       console.error('Error updating customer:', err);
@@ -216,6 +218,7 @@ export async function PUT(
         : found.subscriptions,
     });
 
+    invalidateServerCustomerCache();
     return NextResponse.json({ success: true, customer: updated });
   }
 }
@@ -245,12 +248,14 @@ export async function DELETE(
         new_value: { deleted_at: new Date().toISOString() },
       });
 
+      invalidateServerCustomerCache();
       return NextResponse.json({ success: true });
     } catch (err: any) {
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
   } else {
     deleteMockCustomer(id);
+    invalidateServerCustomerCache();
     return NextResponse.json({ success: true });
   }
 }

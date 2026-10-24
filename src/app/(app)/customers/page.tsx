@@ -15,12 +15,22 @@ import { useNewspaperFilter } from '@/components/layout/NewspaperFilterPills';
 
 const PAGE_SIZE = 20;
 
+// In-memory client cache across navigation
+const clientCustomersCache = new Map<string, { data: any; timestamp: number }>();
+
 export default function CustomersPage() {
   const searchParams = useSearchParams();
   const { selectedPaper, setSelectedPaper, isHydrated } = useNewspaperFilter();
 
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [total, setTotal] = useState(0);
+  const [paperCounts, setPaperCounts] = useState<{
+    ALL: number;
+    THE_HINDU: number;
+    DINAMALAR: number;
+    NIE_DIN: number;
+    DINAKARAN: number;
+  }>({ ALL: 0, THE_HINDU: 0, DINAMALAR: 0, NIE_DIN: 0, DINAKARAN: 0 });
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [statusFilter, setStatusFilter] = useState<string>('');
@@ -35,7 +45,19 @@ export default function CustomersPage() {
   const searchTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const fetchCustomers = useCallback(async () => {
-    setLoading(true);
+    const cacheKey = `${search.trim()}__${selectedPaper}__${statusFilter}__${sortBy}__${sortDir}__${page}`;
+    const cached = clientCustomersCache.get(cacheKey);
+
+    // Instant render if cached within 60s
+    if (cached) {
+      setCustomers(cached.data.customers || []);
+      setTotal(cached.data.total || 0);
+      if (cached.data.paperCounts) setPaperCounts(cached.data.paperCounts);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+
     try {
       const params = new URLSearchParams({
         search: search.trim(),
@@ -47,10 +69,16 @@ export default function CustomersPage() {
         limit: String(PAGE_SIZE),
       });
 
-      const res = await fetch(`/api/customers?${params}`, { cache: 'no-store' });
+      const res = await fetch(`/api/customers?${params}`);
       const data = await res.json();
+
+      clientCustomersCache.set(cacheKey, { data, timestamp: Date.now() });
+
       setCustomers(data.customers || []);
       setTotal(data.total || 0);
+      if (data.paperCounts) {
+        setPaperCounts(data.paperCounts);
+      }
 
       setSelectedCustomersMap((prev) => {
         const next = new Map(prev);
@@ -63,8 +91,9 @@ export default function CustomersPage() {
       });
     } catch (e) {
       console.error(e);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, [search, selectedPaper, statusFilter, sortBy, sortDir, page]);
 
   useEffect(() => {
@@ -295,11 +324,11 @@ export default function CustomersPage() {
               <Newspaper className="w-3.5 h-3.5 text-purple-500" /> Publication:
             </span>
             {[
-              { code: 'ALL' as const, label: 'All 4 Newspapers (79)' },
-              { code: 'THE_HINDU' as const, label: 'The Hindu (35)' },
-              { code: 'DINAMALAR' as const, label: 'Dinamalar (21)' },
-              { code: 'NIE_DIN' as const, label: 'NIE / DIN (18)' },
-              { code: 'DINAKARAN' as const, label: 'Dinakaran (5)' },
+              { code: 'ALL' as const, label: `All 4 Newspapers (${paperCounts.ALL})` },
+              { code: 'THE_HINDU' as const, label: `The Hindu (${paperCounts.THE_HINDU})` },
+              { code: 'DINAMALAR' as const, label: `Dinamalar (${paperCounts.DINAMALAR})` },
+              { code: 'NIE_DIN' as const, label: `NIE / DIN (${paperCounts.NIE_DIN})` },
+              { code: 'DINAKARAN' as const, label: `Dinakaran (${paperCounts.DINAKARAN})` },
             ].map((opt) => {
               const isSelected = selectedPaper === opt.code;
               return (
@@ -339,11 +368,11 @@ export default function CustomersPage() {
             }}
             className="form-input w-auto min-w-[150px] py-1.5 text-xs sm:text-sm font-semibold border-purple-300 dark:border-purple-700 text-purple-900 dark:text-purple-200"
           >
-            <option value="ALL">All Newspapers (79)</option>
-            <option value="THE_HINDU">The Hindu (35)</option>
-            <option value="DINAMALAR">Dinamalar (21)</option>
-            <option value="NIE_DIN">NIE / DIN (18)</option>
-            <option value="DINAKARAN">Dinakaran (5)</option>
+            <option value="ALL">All Newspapers ({paperCounts.ALL})</option>
+            <option value="THE_HINDU">The Hindu ({paperCounts.THE_HINDU})</option>
+            <option value="DINAMALAR">Dinamalar ({paperCounts.DINAMALAR})</option>
+            <option value="NIE_DIN">NIE / DIN ({paperCounts.NIE_DIN})</option>
+            <option value="DINAKARAN">Dinakaran ({paperCounts.DINAKARAN})</option>
           </select>
 
           <select

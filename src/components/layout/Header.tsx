@@ -15,8 +15,11 @@ interface HeaderProps {
   user: any;
 }
 
+let cachedNotifCount: number | null = null;
+let lastNotifFetchTime = 0;
+
 export default function Header({ user }: HeaderProps) {
-  const [notifCount, setNotifCount] = useState(0);
+  const [notifCount, setNotifCount] = useState(cachedNotifCount ?? 6);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,14 +46,22 @@ export default function Header({ user }: HeaderProps) {
   }, []);
 
   async function fetchNotifCount() {
+    const now = Date.now();
+    if (cachedNotifCount !== null && now - lastNotifFetchTime < 60000) {
+      setNotifCount(cachedNotifCount);
+      return;
+    }
     try {
       const { count } = await supabase
         .from(TABLES.NOTIFICATIONS)
         .select('*', { count: 'exact', head: true })
         .eq('status', 'pending');
-      setNotifCount(count || 6); // default 6 notifications from seed data if offline
+      const val = count || 6;
+      cachedNotifCount = val;
+      lastNotifFetchTime = now;
+      setNotifCount(val);
     } catch {
-      setNotifCount(6);
+      setNotifCount(cachedNotifCount ?? 6);
     }
   }
 

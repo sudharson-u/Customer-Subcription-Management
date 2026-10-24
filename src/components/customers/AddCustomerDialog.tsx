@@ -56,7 +56,8 @@ export default function AddCustomerDialog({
         const res = await fetch(`/api/customers?check_mobile=${clean}`);
         const data = await res.json();
         if (data.exists) {
-          setPhoneWarning(`Notice: A customer named "${data.customer_name}" is already registered with this mobile.`);
+          const names = data.existing_customers?.map((c: any) => c.name).join(', ') || data.customer_name;
+          setPhoneWarning(`Note: Mobile ${clean} is currently linked to ${names}. If this is a different subscriber, a separate customer record will be created.`);
         } else {
           setPhoneWarning('');
         }

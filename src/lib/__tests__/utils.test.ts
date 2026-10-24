@@ -8,6 +8,7 @@ import {
   generateSmsReminder,
   formatDate,
   formatOrderId,
+  isSameCustomerIdentity,
 } from '../utils';
 
 describe('Date & Validity Calculations (1-Month / 30-Day Window)', () => {
@@ -110,3 +111,39 @@ describe('Reminder Message Generators', () => {
     expect(sms).toContain('19/09/2026');
   });
 });
+
+describe('Customer Identity Separation on Shared Mobile', () => {
+  it('differentiates distinct people sharing the same mobile number (e.g. Mohammed Jaffer, Tulsi, Pachaiappan)', () => {
+    const jaffer = { customer_name: 'Mohammed Jaffer', mobile_number: '9003103868' };
+    const tulsi = { customer_name: 'Tulsi', mobile_number: '9003103868' };
+    const pachaiappan = { customer_name: 'Pachaiappan', mobile_number: '9003103868' };
+
+    expect(isSameCustomerIdentity(jaffer, tulsi)).toBe(false);
+    expect(isSameCustomerIdentity(jaffer, pachaiappan)).toBe(false);
+    expect(isSameCustomerIdentity(tulsi, pachaiappan)).toBe(false);
+  });
+
+  it('matches same individual across publications with name variations', () => {
+    expect(
+      isSameCustomerIdentity(
+        { customer_name: 'Velpandian.S', mobile_number: '9551296219' },
+        { customer_name: 'Velpandian', mobile_number: '9551296219' }
+      )
+    ).toBe(true);
+
+    expect(
+      isSameCustomerIdentity(
+        { customer_name: 'Baskaran. A', mobile_number: '9500096060' },
+        { customer_name: 'Baskaran', mobile_number: '9500096060' }
+      )
+    ).toBe(true);
+
+    expect(
+      isSameCustomerIdentity(
+        { customer_name: 'Sarumathi', mobile_number: '9790892770' },
+        { customer_name: 'Sarumathy', mobile_number: '9790892770' }
+      )
+    ).toBe(true);
+  });
+});
+

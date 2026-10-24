@@ -14,27 +14,31 @@ import RenewalCustomerCard from '@/components/renewals/RenewalCustomerCard';
 import { generateCustomersPDF } from '@/lib/pdfGenerator';
 import { useNewspaperFilter, NewspaperFilter } from '@/components/layout/NewspaperFilterPills';
 
+let clientRenewalsCache: { data: Customer[]; timestamp: number } | null = null;
+
 export default function RenewalsPage() {
   const { selectedPaper, setSelectedPaper } = useNewspaperFilter();
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [customers, setCustomers] = useState<Customer[]>(clientRenewalsCache?.data || []);
+  const [loading, setLoading] = useState(!clientRenewalsCache?.data);
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState<'all' | 'soon' | 'expired'>('all');
   const todayString = new Date().toISOString();
 
   const fetchRenewals = useCallback(async (signal?: AbortSignal) => {
-    setLoading(true);
+    if (!clientRenewalsCache?.data) {
+      setLoading(true);
+    }
     try {
-      // Fetch all circulation subscriptions across all papers so count is 100% comprehensive and matches dashboard
       const res = await fetch('/api/customers?limit=5000', {
         signal,
-        cache: 'no-store',
       });
       if (!res.ok) throw new Error('Failed to fetch renewals');
       const data = await res.json();
-      setCustomers(data.customers || []);
+      const list = data.customers || [];
+      clientRenewalsCache = { data: list, timestamp: Date.now() };
+      setCustomers(list);
     } catch (err: any) {
-      if (err?.name !== 'AbortError') {
+      if (err?.name !== 'AbortError' && !clientRenewalsCache?.data) {
         setCustomers([]);
       }
     } finally {

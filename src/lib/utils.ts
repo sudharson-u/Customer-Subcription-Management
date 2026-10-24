@@ -338,3 +338,54 @@ export function generateRenewalMessage(params: {
   }
   return `Hindu Portal: Dear ${customerName}, your ${newspaperName} renewal is due on ${endDateStr}. Call Umapathy at 9094013926.`;
 }
+
+/**
+ * Normalizes customer name for comparison (lowercased, alphanumeric only, trimmed)
+ */
+export function normalizeCustomerName(name: string): string {
+  if (!name) return '';
+  return name
+    .toLowerCase()
+    .replace(/\s*\([^)]*\)/g, '') // remove parenthetical annotations like (Office Staff)
+    .replace(/[^a-z0-9]/g, '')
+    .replace(/y$/, 'i'); // e.g. sarumathy -> sarumathi
+}
+
+/**
+ * Checks whether two customer records represent the same individual.
+ * If phone numbers differ (and both are valid 10-digits), they are different.
+ * If phone numbers match, they are only the same customer if their names genuinely match.
+ * Different people sharing a contact phone (e.g., family members or tenants) are treated as distinct customers.
+ */
+export function isSameCustomerIdentity(
+  custA: { customer_name?: string; name?: string; mobile_number?: string; mobile?: string },
+  custB: { customer_name?: string; name?: string; mobile_number?: string; mobile?: string }
+): boolean {
+  const phoneA = sanitizePhone(custA.mobile_number || custA.mobile || '');
+  const phoneB = sanitizePhone(custB.mobile_number || custB.mobile || '');
+
+  // If both have 10-digit phone and phones differ, definitely not same customer
+  if (phoneA.length === 10 && phoneB.length === 10 && phoneA !== phoneB) {
+    return false;
+  }
+
+  const nameA = normalizeCustomerName(custA.customer_name || custA.name || '');
+  const nameB = normalizeCustomerName(custB.customer_name || custB.name || '');
+
+  if (!nameA || !nameB) return false;
+
+  // Exact normalized match
+  if (nameA === nameB) return true;
+
+  // Substring match for genuine name variations (e.g. initials like Velpandian.S vs Velpandian, Baskaran. A vs Baskaran)
+  if (nameA.includes(nameB) || nameB.includes(nameA)) {
+    const shorter = nameA.length < nameB.length ? nameA : nameB;
+    // Don't match short separate names like Ravi vs Ravindran or Siva vs Sivakumar
+    if (shorter === 'ravi' && (nameA.includes('ravindran') || nameB.includes('ravindran'))) return false;
+    if (shorter === 'siva' && (nameA.includes('sivakumar') || nameB.includes('sivakumar'))) return false;
+    if (shorter.length >= 5) return true;
+  }
+
+  return false;
+}
+

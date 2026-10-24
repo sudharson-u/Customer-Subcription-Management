@@ -1,6 +1,4 @@
-import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
-import { TABLES } from '@/lib/supabase/tables';
-import { getMockCustomers } from '@/lib/mockData';
+import { getCachedCustomerData } from '@/lib/dataCache';
 import {
   formatDate,
   calculateStatus,
@@ -19,36 +17,7 @@ import { NewspaperCode } from '@/lib/types';
 export const dynamic = 'force-dynamic';
 
 async function getDashboardData() {
-  let customers: any[] = [];
-
-  if (isSupabaseConfigured()) {
-    try {
-      const supabase = await createClient();
-      const { data, error } = await supabase
-        .from(TABLES.CUSTOMERS)
-        .select(`
-          *,
-          subscriptions:${TABLES.SUBSCRIPTIONS}(
-            *,
-            newspaper:${TABLES.NEWSPAPERS}(code, name, accent_color)
-          )
-        `)
-        .is('deleted_at', null);
-
-      if (error) {
-        console.error('Error fetching dashboard customers:', error);
-        customers = getMockCustomers();
-      } else {
-        customers = data || [];
-      }
-    } catch (err) {
-      console.error('Failed to get dashboard data:', err);
-      customers = getMockCustomers();
-    }
-  } else {
-    customers = getMockCustomers();
-  }
-
+  const customers = await getCachedCustomerData();
   const today = new Date();
 
   const stats = {

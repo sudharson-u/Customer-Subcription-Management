@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { TABLES } from '@/lib/supabase/tables';
 import { getMockCustomers, saveMockCustomer } from '@/lib/mockData';
+import { invalidateServerCustomerCache } from '@/lib/dataCache';
 
 export async function POST(
   request: Request,
@@ -89,6 +90,7 @@ export async function POST(
         new_value: { new_start_date, new_end_date, order_no: order_no || oldSub.order_no, status: 'Active' },
       });
 
+      invalidateServerCustomerCache();
       return NextResponse.json({ success: true, subscription: updatedSub });
     } catch (err: any) {
       console.error('Error during renewal:', err);
@@ -115,6 +117,7 @@ export async function POST(
         saveMockCustomer(cust);
       }
     }
+    invalidateServerCustomerCache();
     return NextResponse.json({ success: true });
   }
 }

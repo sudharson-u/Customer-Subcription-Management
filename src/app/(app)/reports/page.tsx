@@ -16,9 +16,11 @@ const MONTH_NAMES = [
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
+let clientReportsCache: { data: Customer[]; timestamp: number } | null = null;
+
 export default function ReportsPage() {
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [customers, setCustomers] = useState<Customer[]>(clientReportsCache?.data || []);
+  const [loading, setLoading] = useState(!clientReportsCache?.data);
   const [generating, setGenerating] = useState<string | null>(null);
 
   // Filters for Custom Report
@@ -33,13 +35,19 @@ export default function ReportsPage() {
 
   useEffect(() => {
     const fetchAll = async () => {
-      try {
+      if (!clientReportsCache?.data) {
         setLoading(true);
+      }
+      try {
         const res = await fetch('/api/customers?limit=1000');
         const data = await res.json();
-        setCustomers(data.customers || []);
+        const list = data.customers || [];
+        clientReportsCache = { data: list, timestamp: Date.now() };
+        setCustomers(list);
       } catch {
-        setCustomers([]);
+        if (!clientReportsCache?.data) {
+          setCustomers([]);
+        }
       } finally {
         setLoading(false);
       }

@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-18T16:53:51.314Z",
+  "generated_at": "2026-10-24T12:34:28.183Z",
   "summary": {
-    "total_customers": 58,
+    "total_customers": 68,
     "total_subscriptions": 79,
-    "multi_paper_customers": 15,
+    "multi_paper_customers": 10,
     "review_queue_count": 21,
     "dinakaran_count": 5,
     "dinamalar_count": 21,
@@ -14,7 +14,7 @@
     {
       "customer_name": "Mohammed Jaffer",
       "mobile_number": "9003103868",
-      "email": "Sudharson192007@gmail.com",
+      "email": "",
       "address": "17/2, Kumaravelu Street, Royapuram, Chennai-13",
       "street_area": "Royapuram",
       "pincode": "600013",
@@ -32,30 +32,6 @@
           "review_reason": "",
           "remarks": "",
           "raw_s_no": 1
-        },
-        {
-          "newspaper": "THE_HINDU",
-          "order_no": "",
-          "start_date": "2026-07-16",
-          "end_date": "2027-07-15",
-          "is_end_date_calculated": true,
-          "status": "Active",
-          "needs_review": true,
-          "review_reason": "End date auto-corrected to 1 year minus 1 day (2027-07-15) from raw '2020-07-15'",
-          "remarks": "",
-          "raw_s_no": 15
-        },
-        {
-          "newspaper": "DINAMALAR",
-          "order_no": "",
-          "start_date": "2025-08-21",
-          "end_date": "2026-08-20",
-          "is_end_date_calculated": true,
-          "status": "Active",
-          "needs_review": true,
-          "review_reason": "End date auto-corrected to 1 year (2026-08-20) from raw '20/8/202'",
-          "remarks": "",
-          "raw_s_no": 9
         }
       ],
       "customer_code": "HIN-0001"
@@ -63,7 +39,7 @@
     {
       "customer_name": "Abdul Wajj Basha",
       "mobile_number": "8428402963",
-      "email": "Whytellme751@gmail.com",
+      "email": "",
       "address": "108/109, S.N Complex, 1st Floor, M.S Koil Street, Royapuram, Chennai-13",
       "street_area": "Royapuram",
       "pincode": "600013",
@@ -81,30 +57,6 @@
           "review_reason": "",
           "remarks": "",
           "raw_s_no": 2
-        },
-        {
-          "newspaper": "THE_HINDU",
-          "order_no": "",
-          "start_date": "2022-09-16",
-          "end_date": "2023-09-15",
-          "is_end_date_calculated": true,
-          "status": "Active",
-          "needs_review": true,
-          "review_reason": "End date auto-corrected to 1 year minus 1 day (2023-09-15) from raw '2020-09-15'",
-          "remarks": "",
-          "raw_s_no": 20
-        },
-        {
-          "newspaper": "DINAMALAR",
-          "order_no": "",
-          "start_date": "2026-02-21",
-          "end_date": "2027-02-20",
-          "is_end_date_calculated": false,
-          "status": "Active",
-          "needs_review": false,
-          "review_reason": "",
-          "remarks": "",
-          "raw_s_no": 1
         }
       ],
       "customer_code": "HIN-0002"
@@ -112,7 +64,7 @@
     {
       "customer_name": "Umapathy",
       "mobile_number": "9094013926",
-      "email": "uma250975@gmail.com",
+      "email": "",
       "address": "Old No:3/2, New No:9, 2nd Floor, Veerasamy Lane, Royapuram, Chennai-13",
       "street_area": "Royapuram",
       "pincode": "600013",
@@ -130,18 +82,6 @@
           "review_reason": "",
           "remarks": "",
           "raw_s_no": 3
-        },
-        {
-          "newspaper": "THE_HINDU",
-          "order_no": "",
-          "start_date": "2026-05-01",
-          "end_date": "2027-04-30",
-          "is_end_date_calculated": false,
-          "status": "Active",
-          "needs_review": false,
-          "review_reason": "",
-          "remarks": "",
-          "raw_s_no": 7
         },
         {
           "newspaper": "DINAMALAR",
@@ -293,18 +233,6 @@
           "raw_s_no": 3
         },
         {
-          "newspaper": "NIE_DIN",
-          "order_no": "1333796",
-          "start_date": "2026-07-01",
-          "end_date": "2027-06-30",
-          "is_end_date_calculated": false,
-          "status": "Active",
-          "needs_review": false,
-          "review_reason": "",
-          "remarks": "",
-          "raw_s_no": 8
-        },
-        {
           "newspaper": "DINAMALAR",
           "order_no": "",
           "start_date": "2026-03-01",
@@ -407,6 +335,31 @@
       "customer_code": "HIN-0011"
     },
     {
+      "customer_name": "Meenakshi Sundaram",
+      "mobile_number": "9094013926",
+      "email": "uma250975@gmail.com",
+      "address": "Old No:3/2, New No:9,2nd Floor, Veerasamy Lane, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-05-01",
+          "end_date": "2027-04-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 7
+        }
+      ],
+      "customer_code": "HIN-0012"
+    },
+    {
       "customer_name": "Abdul Rahman",
       "mobile_number": "9941418296",
       "email": "Snega8428@gmail.com",
@@ -429,7 +382,7 @@
           "raw_s_no": 8
         }
       ],
-      "customer_code": "HIN-0012"
+      "customer_code": "HIN-0013"
     },
     {
       "customer_name": "Sandeep Bharadwaj",
@@ -454,7 +407,7 @@
           "raw_s_no": 9
         }
       ],
-      "customer_code": "HIN-0013"
+      "customer_code": "HIN-0014"
     },
     {
       "customer_name": "Jeevanantham",
@@ -479,7 +432,7 @@
           "raw_s_no": 10
         }
       ],
-      "customer_code": "HIN-0014"
+      "customer_code": "HIN-0015"
     },
     {
       "customer_name": "Vairamani",
@@ -504,7 +457,7 @@
           "raw_s_no": 11
         }
       ],
-      "customer_code": "HIN-0015"
+      "customer_code": "HIN-0016"
     },
     {
       "customer_name": "Praveen Kumar",
@@ -529,7 +482,7 @@
           "raw_s_no": 12
         }
       ],
-      "customer_code": "HIN-0016"
+      "customer_code": "HIN-0017"
     },
     {
       "customer_name": "Varghese",
@@ -554,7 +507,7 @@
           "raw_s_no": 13
         }
       ],
-      "customer_code": "HIN-0017"
+      "customer_code": "HIN-0018"
     },
     {
       "customer_name": "Dhanasekaran",
@@ -591,7 +544,32 @@
           "raw_s_no": 3
         }
       ],
-      "customer_code": "HIN-0018"
+      "customer_code": "HIN-0019"
+    },
+    {
+      "customer_name": "Tulsi",
+      "mobile_number": "9003103868",
+      "email": "Sudharson192007@gmail.com",
+      "address": "46/90, Venkatachelam St, royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2026-07-16",
+          "end_date": "2027-07-15",
+          "is_end_date_calculated": true,
+          "status": "Active",
+          "needs_review": true,
+          "review_reason": "End date auto-corrected to 1 year minus 1 day (2027-07-15) from raw '2020-07-15'",
+          "remarks": "",
+          "raw_s_no": 15
+        }
+      ],
+      "customer_code": "HIN-0020"
     },
     {
       "customer_name": "Dhakshana Moorthy",
@@ -616,7 +594,7 @@
           "raw_s_no": 16
         }
       ],
-      "customer_code": "HIN-0019"
+      "customer_code": "HIN-0021"
     },
     {
       "customer_name": "Ravindran S",
@@ -639,21 +617,9 @@
           "review_reason": "End date auto-corrected to 1 year minus 1 day (2027-08-31) from raw '2020-08-31'",
           "remarks": "",
           "raw_s_no": 17
-        },
-        {
-          "newspaper": "NIE_DIN",
-          "order_no": "",
-          "start_date": "2026-10-01",
-          "end_date": "2027-09-30",
-          "is_end_date_calculated": false,
-          "status": "Active",
-          "needs_review": false,
-          "review_reason": "",
-          "remarks": "",
-          "raw_s_no": 10
         }
       ],
-      "customer_code": "HIN-0020"
+      "customer_code": "HIN-0022"
     },
     {
       "customer_name": "Rajaiah.P.P.J",
@@ -690,7 +656,7 @@
           "raw_s_no": 10
         }
       ],
-      "customer_code": "HIN-0021"
+      "customer_code": "HIN-0023"
     },
     {
       "customer_name": "Dilli Babu",
@@ -715,7 +681,44 @@
           "raw_s_no": 19
         }
       ],
-      "customer_code": "HIN-0022"
+      "customer_code": "HIN-0024"
+    },
+    {
+      "customer_name": "Navaneetha Krishnan",
+      "mobile_number": "8428402963",
+      "email": "Whytellme751@gmail.com",
+      "address": "148/134, G.A road, royapuram, Chennai-13",
+      "street_area": "Old Washermanpet",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "THE_HINDU",
+          "order_no": "",
+          "start_date": "2022-09-16",
+          "end_date": "2023-09-15",
+          "is_end_date_calculated": true,
+          "status": "Active",
+          "needs_review": true,
+          "review_reason": "End date auto-corrected to 1 year minus 1 day (2023-09-15) from raw '2020-09-15'",
+          "remarks": "",
+          "raw_s_no": 20
+        },
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1403302",
+          "start_date": "2026-02-01",
+          "end_date": "2027-01-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 4
+        }
+      ],
+      "customer_code": "HIN-0025"
     },
     {
       "customer_name": "Susai Vallarian. R",
@@ -740,7 +743,7 @@
           "raw_s_no": 22
         }
       ],
-      "customer_code": "HIN-0023"
+      "customer_code": "HIN-0026"
     },
     {
       "customer_name": "The Head Mistress",
@@ -763,33 +766,9 @@
           "review_reason": "End date auto-corrected to 1 year minus 1 day (2026-10-15) from raw '2023-10-15'",
           "remarks": "",
           "raw_s_no": 23
-        },
-        {
-          "newspaper": "NIE_DIN",
-          "order_no": "1353302",
-          "start_date": "2026-04-16",
-          "end_date": "2027-04-15",
-          "is_end_date_calculated": false,
-          "status": "Active",
-          "needs_review": false,
-          "review_reason": "",
-          "remarks": "",
-          "raw_s_no": 6
-        },
-        {
-          "newspaper": "DINAMALAR",
-          "order_no": "",
-          "start_date": "2024-11-11",
-          "end_date": "2025-11-10",
-          "is_end_date_calculated": false,
-          "status": "Active",
-          "needs_review": false,
-          "review_reason": "",
-          "remarks": "",
-          "raw_s_no": 12
         }
       ],
-      "customer_code": "HIN-0024"
+      "customer_code": "HIN-0027"
     },
     {
       "customer_name": "Kutub Rangoonwala",
@@ -814,7 +793,7 @@
           "raw_s_no": 24
         }
       ],
-      "customer_code": "HIN-0025"
+      "customer_code": "HIN-0028"
     },
     {
       "customer_name": "Radha Krishnan",
@@ -839,7 +818,7 @@
           "raw_s_no": 25
         }
       ],
-      "customer_code": "HIN-0026"
+      "customer_code": "HIN-0029"
     },
     {
       "customer_name": "Nooruddin Lokhat",
@@ -864,7 +843,7 @@
           "raw_s_no": 26
         }
       ],
-      "customer_code": "HIN-0027"
+      "customer_code": "HIN-0030"
     },
     {
       "customer_name": "Hasani Khasamwala",
@@ -889,7 +868,7 @@
           "raw_s_no": 27
         }
       ],
-      "customer_code": "HIN-0028"
+      "customer_code": "HIN-0031"
     },
     {
       "customer_name": "Velpandian.S",
@@ -938,7 +917,7 @@
           "raw_s_no": 8
         }
       ],
-      "customer_code": "HIN-0029"
+      "customer_code": "HIN-0032"
     },
     {
       "customer_name": "C.A Mohammed Yasin",
@@ -963,7 +942,7 @@
           "raw_s_no": 29
         }
       ],
-      "customer_code": "HIN-0030"
+      "customer_code": "HIN-0033"
     },
     {
       "customer_name": "Selva Raj",
@@ -988,7 +967,7 @@
           "raw_s_no": 30
         }
       ],
-      "customer_code": "HIN-0031"
+      "customer_code": "HIN-0034"
     },
     {
       "customer_name": "Tasswar Ahmed",
@@ -1013,7 +992,7 @@
           "raw_s_no": 31
         }
       ],
-      "customer_code": "HIN-0032"
+      "customer_code": "HIN-0035"
     },
     {
       "customer_name": "Hamza",
@@ -1038,7 +1017,7 @@
           "raw_s_no": 32
         }
       ],
-      "customer_code": "HIN-0033"
+      "customer_code": "HIN-0036"
     },
     {
       "customer_name": "Deepak Kumar",
@@ -1063,7 +1042,7 @@
           "raw_s_no": 33
         }
       ],
-      "customer_code": "HIN-0034"
+      "customer_code": "HIN-0037"
     },
     {
       "customer_name": "Melvin Josh",
@@ -1088,7 +1067,7 @@
           "raw_s_no": 34
         }
       ],
-      "customer_code": "HIN-0035"
+      "customer_code": "HIN-0038"
     },
     {
       "customer_name": "Arihant Pawn",
@@ -1113,7 +1092,7 @@
           "raw_s_no": 35
         }
       ],
-      "customer_code": "HIN-0036"
+      "customer_code": "HIN-0039"
     },
     {
       "customer_name": "Thiruthangal Nadar Kalyana Mandapam",
@@ -1138,7 +1117,7 @@
           "raw_s_no": 1
         }
       ],
-      "customer_code": "HIN-0037"
+      "customer_code": "HIN-0040"
     },
     {
       "customer_name": "Kalaiselvi",
@@ -1163,32 +1142,7 @@
           "raw_s_no": 2
         }
       ],
-      "customer_code": "HIN-0038"
-    },
-    {
-      "customer_name": "Navaneetha Krishnan",
-      "mobile_number": "824858273",
-      "email": "",
-      "address": "148/134,G.A road,Royapuram,Chennai-13",
-      "street_area": "Old Washermanpet",
-      "pincode": "600013",
-      "customer_type": "Regular",
-      "notes": "",
-      "subscriptions": [
-        {
-          "newspaper": "NIE_DIN",
-          "order_no": "1403302",
-          "start_date": "2026-02-01",
-          "end_date": "2027-01-31",
-          "is_end_date_calculated": false,
-          "status": "Active",
-          "needs_review": false,
-          "review_reason": "",
-          "remarks": "",
-          "raw_s_no": 4
-        }
-      ],
-      "customer_code": "HIN-0039"
+      "customer_code": "HIN-0041"
     },
     {
       "customer_name": "Siva",
@@ -1213,7 +1167,32 @@
           "raw_s_no": 5
         }
       ],
-      "customer_code": "HIN-0040"
+      "customer_code": "HIN-0042"
+    },
+    {
+      "customer_name": "Sneha",
+      "mobile_number": "8681937147",
+      "email": "",
+      "address": "95/315,2nd Floor,T.H Road,New Washermenpet,Chennai-81",
+      "street_area": "New Washermanpet",
+      "pincode": "600081",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "1353302",
+          "start_date": "2026-04-16",
+          "end_date": "2027-04-15",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 6
+        }
+      ],
+      "customer_code": "HIN-0043"
     },
     {
       "customer_name": "Sudharson",
@@ -1236,21 +1215,34 @@
           "review_reason": "",
           "remarks": "",
           "raw_s_no": 7
-        },
+        }
+      ],
+      "customer_code": "HIN-0044"
+    },
+    {
+      "customer_name": "Sathyamoorthy(Sarumathy)",
+      "mobile_number": "9790892770",
+      "email": "",
+      "address": "14/23,Cg Colony Main Road,1st Floor,Royapuram,Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
         {
-          "newspaper": "DINAMALAR",
-          "order_no": "",
-          "start_date": "2024-11-11",
-          "end_date": "2025-11-10",
+          "newspaper": "NIE_DIN",
+          "order_no": "1333796",
+          "start_date": "2026-07-01",
+          "end_date": "2027-06-30",
           "is_end_date_calculated": false,
           "status": "Active",
           "needs_review": false,
           "review_reason": "",
           "remarks": "",
-          "raw_s_no": 13
+          "raw_s_no": 8
         }
       ],
-      "customer_code": "HIN-0041"
+      "customer_code": "HIN-0045"
     },
     {
       "customer_name": "Ravin Dhall And Pulses",
@@ -1275,7 +1267,32 @@
           "raw_s_no": 9
         }
       ],
-      "customer_code": "HIN-0042"
+      "customer_code": "HIN-0046"
+    },
+    {
+      "customer_name": "Ravi",
+      "mobile_number": "9500145101",
+      "email": "",
+      "address": "44/54,Thambu lane,Royapuram,Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "NIE_DIN",
+          "order_no": "",
+          "start_date": "2026-10-01",
+          "end_date": "2027-09-30",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 10
+        }
+      ],
+      "customer_code": "HIN-0047"
     },
     {
       "customer_name": "Dhakshana Moorthy",
@@ -1312,7 +1329,7 @@
           "raw_s_no": 11
         }
       ],
-      "customer_code": "HIN-0043"
+      "customer_code": "HIN-0048"
     },
     {
       "customer_name": "Mohideen",
@@ -1349,7 +1366,7 @@
           "raw_s_no": 16
         }
       ],
-      "customer_code": "HIN-0044"
+      "customer_code": "HIN-0049"
     },
     {
       "customer_name": "Murugesan",
@@ -1374,7 +1391,7 @@
           "raw_s_no": 13
         }
       ],
-      "customer_code": "HIN-0045"
+      "customer_code": "HIN-0050"
     },
     {
       "customer_name": "Jiya Sudeen S/O Sadullah khan",
@@ -1399,7 +1416,7 @@
           "raw_s_no": 16
         }
       ],
-      "customer_code": "HIN-0046"
+      "customer_code": "HIN-0051"
     },
     {
       "customer_name": "Aadhavan Ad Service - Mr.Sivagnanam",
@@ -1424,7 +1441,7 @@
           "raw_s_no": 17
         }
       ],
-      "customer_code": "HIN-0047"
+      "customer_code": "HIN-0052"
     },
     {
       "customer_name": "Siva. V.",
@@ -1447,21 +1464,34 @@
           "review_reason": "",
           "remarks": "",
           "raw_s_no": 18
-        },
+        }
+      ],
+      "customer_code": "HIN-0053"
+    },
+    {
+      "customer_name": "Snega.U",
+      "mobile_number": "8428402963",
+      "email": "",
+      "address": "108/109,S.N Complex, 1st Floor, M.S Koil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
         {
           "newspaper": "DINAMALAR",
           "order_no": "",
-          "start_date": "2026-09-01",
-          "end_date": "2027-08-31",
+          "start_date": "2026-02-21",
+          "end_date": "2027-02-20",
           "is_end_date_calculated": false,
           "status": "Active",
           "needs_review": false,
           "review_reason": "",
           "remarks": "",
-          "raw_s_no": 14
+          "raw_s_no": 1
         }
       ],
-      "customer_code": "HIN-0048"
+      "customer_code": "HIN-0054"
     },
     {
       "customer_name": "Dilli Babu",
@@ -1486,7 +1516,7 @@
           "raw_s_no": 2
         }
       ],
-      "customer_code": "HIN-0049"
+      "customer_code": "HIN-0055"
     },
     {
       "customer_name": "J.Kumaran",
@@ -1511,7 +1541,7 @@
           "raw_s_no": 3
         }
       ],
-      "customer_code": "HIN-0050"
+      "customer_code": "HIN-0056"
     },
     {
       "customer_name": "Revathi",
@@ -1536,7 +1566,7 @@
           "raw_s_no": 4
         }
       ],
-      "customer_code": "HIN-0051"
+      "customer_code": "HIN-0057"
     },
     {
       "customer_name": "Samantham",
@@ -1561,7 +1591,107 @@
           "raw_s_no": 7
         }
       ],
-      "customer_code": "HIN-0052"
+      "customer_code": "HIN-0058"
+    },
+    {
+      "customer_name": "Pachaiappan",
+      "mobile_number": "9003103868",
+      "email": "",
+      "address": "55/2, Adam Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2025-08-21",
+          "end_date": "2026-08-20",
+          "is_end_date_calculated": true,
+          "status": "Active",
+          "needs_review": true,
+          "review_reason": "End date auto-corrected to 1 year (2026-08-20) from raw '20/8/202'",
+          "remarks": "",
+          "raw_s_no": 9
+        }
+      ],
+      "customer_code": "HIN-0059"
+    },
+    {
+      "customer_name": "S.Navaneetha Krishnan",
+      "mobile_number": "8681937147",
+      "email": "",
+      "address": "148/134,G.A Road, Old washermenpet, Chennai-21",
+      "street_area": "Old Washermanpet",
+      "pincode": "600021",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2024-11-11",
+          "end_date": "2025-11-10",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 12
+        }
+      ],
+      "customer_code": "HIN-0060"
+    },
+    {
+      "customer_name": "M.Baskaran",
+      "mobile_number": "8754417984",
+      "email": "",
+      "address": "25, Adam Sahib Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2024-11-11",
+          "end_date": "2025-11-10",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 13
+        }
+      ],
+      "customer_code": "HIN-0061"
+    },
+    {
+      "customer_name": "V.Sivakumar",
+      "mobile_number": "8667721720",
+      "email": "",
+      "address": "5, M.S. Kovil Street, Royapuram, Chennai-13",
+      "street_area": "Royapuram",
+      "pincode": "600013",
+      "customer_type": "Regular",
+      "notes": "",
+      "subscriptions": [
+        {
+          "newspaper": "DINAMALAR",
+          "order_no": "",
+          "start_date": "2026-09-01",
+          "end_date": "2027-08-31",
+          "is_end_date_calculated": false,
+          "status": "Active",
+          "needs_review": false,
+          "review_reason": "",
+          "remarks": "",
+          "raw_s_no": 14
+        }
+      ],
+      "customer_code": "HIN-0062"
     },
     {
       "customer_name": "S. Satheesh Kumar",
@@ -1586,7 +1716,7 @@
           "raw_s_no": 15
         }
       ],
-      "customer_code": "HIN-0053"
+      "customer_code": "HIN-0063"
     },
     {
       "customer_name": "S. Idaiya kani",
@@ -1611,7 +1741,7 @@
           "raw_s_no": 17
         }
       ],
-      "customer_code": "HIN-0054"
+      "customer_code": "HIN-0064"
     },
     {
       "customer_name": "Pradeep Francis .S",
@@ -1636,7 +1766,7 @@
           "raw_s_no": 18
         }
       ],
-      "customer_code": "HIN-0055"
+      "customer_code": "HIN-0065"
     },
     {
       "customer_name": "Shakila Begam",
@@ -1661,7 +1791,7 @@
           "raw_s_no": 19
         }
       ],
-      "customer_code": "HIN-0056"
+      "customer_code": "HIN-0066"
     },
     {
       "customer_name": "Sasikumar.R",
@@ -1686,7 +1816,7 @@
           "raw_s_no": 20
         }
       ],
-      "customer_code": "HIN-0057"
+      "customer_code": "HIN-0067"
     },
     {
       "customer_name": "Vasanthi",
@@ -1711,51 +1841,12 @@
           "raw_s_no": 21
         }
       ],
-      "customer_code": "HIN-0058"
+      "customer_code": "HIN-0068"
     }
   ],
   "review_queue": [
     {
       "id": "rq-1",
-      "customer_name": "Mohammed Jaffer",
-      "newspaper": "THE_HINDU",
-      "order_no": "",
-      "issue_type": "DATE_AMBIGUITY",
-      "description": "End date auto-corrected to 1 year minus 1 day (2027-07-15) from raw '2020-07-15'",
-      "raw_data": {
-        "start_date": "2026-07-16",
-        "end_date": "2027-07-15"
-      },
-      "status": "pending"
-    },
-    {
-      "id": "rq-2",
-      "customer_name": "Mohammed Jaffer",
-      "newspaper": "DINAMALAR",
-      "order_no": "",
-      "issue_type": "DATE_AMBIGUITY",
-      "description": "End date auto-corrected to 1 year (2026-08-20) from raw '20/8/202'",
-      "raw_data": {
-        "start_date": "2025-08-21",
-        "end_date": "2026-08-20"
-      },
-      "status": "pending"
-    },
-    {
-      "id": "rq-3",
-      "customer_name": "Abdul Wajj Basha",
-      "newspaper": "THE_HINDU",
-      "order_no": "",
-      "issue_type": "DATE_AMBIGUITY",
-      "description": "End date auto-corrected to 1 year minus 1 day (2023-09-15) from raw '2020-09-15'",
-      "raw_data": {
-        "start_date": "2022-09-16",
-        "end_date": "2023-09-15"
-      },
-      "status": "pending"
-    },
-    {
-      "id": "rq-4",
       "customer_name": "Umapathy",
       "newspaper": "DINAMALAR",
       "order_no": "",
@@ -1768,7 +1859,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-5",
+      "id": "rq-2",
       "customer_name": "Baskaran",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1781,7 +1872,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-6",
+      "id": "rq-3",
       "customer_name": "Abdul Rahman",
       "newspaper": "DINAKARAN",
       "order_no": "",
@@ -1794,7 +1885,20 @@
       "status": "pending"
     },
     {
-      "id": "rq-7",
+      "id": "rq-4",
+      "customer_name": "Tulsi",
+      "newspaper": "THE_HINDU",
+      "order_no": "",
+      "issue_type": "DATE_AMBIGUITY",
+      "description": "End date auto-corrected to 1 year minus 1 day (2027-07-15) from raw '2020-07-15'",
+      "raw_data": {
+        "start_date": "2026-07-16",
+        "end_date": "2027-07-15"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "rq-5",
       "customer_name": "Dhakshana Moorthy",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1807,7 +1911,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-8",
+      "id": "rq-6",
       "customer_name": "Ravindran S",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1820,7 +1924,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-9",
+      "id": "rq-7",
       "customer_name": "Rajaiah.P.P.J",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1833,7 +1937,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-10",
+      "id": "rq-8",
       "customer_name": "Rajaiah.P.P.J",
       "newspaper": "DINAMALAR",
       "order_no": "",
@@ -1846,7 +1950,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-11",
+      "id": "rq-9",
       "customer_name": "Dilli Babu",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1859,7 +1963,20 @@
       "status": "pending"
     },
     {
-      "id": "rq-12",
+      "id": "rq-10",
+      "customer_name": "Navaneetha Krishnan",
+      "newspaper": "THE_HINDU",
+      "order_no": "",
+      "issue_type": "DATE_AMBIGUITY",
+      "description": "End date auto-corrected to 1 year minus 1 day (2023-09-15) from raw '2020-09-15'",
+      "raw_data": {
+        "start_date": "2022-09-16",
+        "end_date": "2023-09-15"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "rq-11",
       "customer_name": "Susai Vallarian. R",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1872,7 +1989,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-13",
+      "id": "rq-12",
       "customer_name": "The Head Mistress",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1885,7 +2002,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-14",
+      "id": "rq-13",
       "customer_name": "Kutub Rangoonwala",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1898,7 +2015,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-15",
+      "id": "rq-14",
       "customer_name": "Radha Krishnan",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1911,7 +2028,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-16",
+      "id": "rq-15",
       "customer_name": "Nooruddin Lokhat",
       "newspaper": "THE_HINDU",
       "order_no": "",
@@ -1924,7 +2041,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-17",
+      "id": "rq-16",
       "customer_name": "Velpandian.S",
       "newspaper": "DINAMALAR",
       "order_no": "",
@@ -1937,7 +2054,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-18",
+      "id": "rq-17",
       "customer_name": "Dhakshana Moorthy",
       "newspaper": "DINAMALAR",
       "order_no": "",
@@ -1950,7 +2067,7 @@
       "status": "pending"
     },
     {
-      "id": "rq-19",
+      "id": "rq-18",
       "customer_name": "Samantham",
       "newspaper": "DINAMALAR",
       "order_no": "",
@@ -1959,6 +2076,19 @@
       "raw_data": {
         "start_date": "2025-08-11",
         "end_date": "2026-08-10"
+      },
+      "status": "pending"
+    },
+    {
+      "id": "rq-19",
+      "customer_name": "Pachaiappan",
+      "newspaper": "DINAMALAR",
+      "order_no": "",
+      "issue_type": "DATE_AMBIGUITY",
+      "description": "End date auto-corrected to 1 year (2026-08-20) from raw '20/8/202'",
+      "raw_data": {
+        "start_date": "2025-08-21",
+        "end_date": "2026-08-20"
       },
       "status": "pending"
     },

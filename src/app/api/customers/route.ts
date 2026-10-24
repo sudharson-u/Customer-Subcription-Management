@@ -2,8 +2,9 @@ import { NextResponse } from 'next/server';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { TABLES } from '@/lib/supabase/tables';
 import { getMockCustomers, saveMockCustomer } from '@/lib/mockData';
-import { calculateStatus, sanitizePhone } from '@/lib/utils';
+import { calculateStatus, sanitizePhone, isSameCustomerIdentity } from '@/lib/utils';
 import { Customer, NewspaperCode } from '@/lib/types';
+import { getCachedCustomerData, invalidateServerCustomerCache } from '@/lib/dataCache';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -19,23 +20,25 @@ export async function GET(request: Request) {
       const supabase = await createClient();
       const { data } = await supabase
         .from(TABLES.CUSTOMERS)
-        .select('id, customer_name, customer_code')
+        .select('id, customer_name, customer_code, mobile_number')
         .eq('mobile_number', cleanPhone)
-        .is('deleted_at', null)
-        .maybeSingle();
+        .is('deleted_at', null);
 
+      const existingCust = data && data.length > 0 ? data[0] : null;
       return NextResponse.json({
-        exists: !!data,
-        customer_name: data?.customer_name || null,
-        customer_code: data?.customer_code || null,
+        exists: !!existingCust,
+        customer_name: existingCust?.customer_name || null,
+        customer_code: existingCust?.customer_code || null,
+        existing_customers: (data || []).map(c => ({ id: c.id, name: c.customer_name })),
       });
     } else {
       const list = getMockCustomers();
-      const found = list.find(c => sanitizePhone(c.mobile_number) === cleanPhone && !c.deleted_at);
+      const found = list.filter(c => sanitizePhone(c.mobile_number) === cleanPhone && !c.deleted_at);
       return NextResponse.json({
-        exists: !!found,
-        customer_name: found?.customer_name || null,
-        customer_code: found?.customer_code || null,
+        exists: found.length > 0,
+        customer_name: found[0]?.customer_name || null,
+        customer_code: found[0]?.customer_code || null,
+        existing_customers: found.map(c => ({ id: c.id, name: c.customer_name })),
       });
     }
   }
@@ -48,48 +51,9 @@ export async function GET(request: Request) {
   const sortDir = searchParams.get('dir') === 'desc' ? 'desc' : 'asc';
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const limit = Math.max(1, parseInt(searchParams.get('limit') || '20', 10));
+  const forceRefresh = searchParams.get('refresh') === 'true';
 
-  let customers: Customer[] = [];
-
-  if (isSupabaseConfigured()) {
-    try {
-      const supabase = await createClient();
-      let query = supabase
-        .from(TABLES.CUSTOMERS)
-        .select(`
-          *,
-          subscriptions:${TABLES.SUBSCRIPTIONS}(
-            id, customer_id, newspaper_id, order_no, start_date, end_date,
-            duration_months, status, is_current, is_end_date_calculated,
-            needs_review, review_reason, remarks, notification_date,
-            newspaper:${TABLES.NEWSPAPERS}(id, code, name, short_name, accent_color, badge_bg, badge_text)
-          )
-        `)
-        .is('deleted_at', null);
-
-      const { data, error } = await query;
-      if (!error && data) {
-        customers = data.map((c: any) => ({
-          ...c,
-          subscriptions: (c.subscriptions || []).map((s: any) => ({
-            ...s,
-            newspaper: s.newspaper || s.newspapers,
-          })),
-        }));
-      } else {
-        if (error) console.error('Error fetching customers:', error);
-        customers = getMockCustomers();
-      }
-    } catch (err) {
-      console.error('Exception fetching customers:', err);
-      customers = getMockCustomers();
-    }
-  } else {
-    customers = getMockCustomers();
-  }
-
-  // Filter soft-deleted
-  customers = customers.filter(c => !c.deleted_at);
+  let customers: Customer[] = await getCachedCustomerData(forceRefresh);
 
   // Flatten subscriptions into discrete circulation records so every copy is accounted for without data loss
   const expandedList: any[] = [];
@@ -100,17 +64,7 @@ export async function GET(request: Request) {
     // If a customer has no active/current subscriptions, keep the latest one or empty
     const subs = currentSubs.length > 0 ? currentSubs : (allSubs.length > 0 ? [allSubs[0]] : []);
 
-    if (subs.length === 0) {
-      expandedList.push({
-        ...c,
-        id: c.id,
-        customerId: c.id,
-        customer_code: '', // Real order_no only, no fake HIN codes
-        order_no: '',
-        subscriptions: [],
-        _paperCode: '',
-      });
-    } else {
+    if (subs.length > 0) {
       subs.forEach((sub: any, sIdx: number) => {
         const pCode = sub.newspaper?.code || (sub as any).newspaper || 'THE_HINDU';
         expandedList.push({
@@ -126,6 +80,15 @@ export async function GET(request: Request) {
     }
   });
   customers = expandedList;
+
+  // Real-time dynamic count per newspaper across all registered subscriptions
+  const paperCounts = {
+    ALL: expandedList.filter((c: any) => c._paperCode && c.subscriptions?.length > 0).length,
+    THE_HINDU: expandedList.filter((c: any) => c._paperCode === 'THE_HINDU').length,
+    DINAMALAR: expandedList.filter((c: any) => c._paperCode === 'DINAMALAR').length,
+    NIE_DIN: expandedList.filter((c: any) => c._paperCode === 'NIE_DIN').length,
+    DINAKARAN: expandedList.filter((c: any) => c._paperCode === 'DINAKARAN').length,
+  };
 
   const today = new Date();
 
@@ -209,6 +172,7 @@ export async function GET(request: Request) {
     total,
     page,
     limit,
+    paperCounts,
   });
 }
 
@@ -238,18 +202,26 @@ export async function POST(request: Request) {
     if (isSupabaseConfigured()) {
       const supabase = await createClient();
 
-      // Check if customer exists by phone
+      // Check if customer exists WITH SAME IDENTITY (both phone and name match)
+      // If phone matches but customer name is different, treat as a separate customer!
       let customerId: string | null = null;
       if (cleanPhone) {
-        const { data: existing } = await supabase
+        const { data: existingList } = await supabase
           .from(TABLES.CUSTOMERS)
-          .select('id')
+          .select('id, customer_name, mobile_number')
           .eq('mobile_number', cleanPhone)
-          .is('deleted_at', null)
-          .maybeSingle();
+          .is('deleted_at', null);
 
-        if (existing) {
-          customerId = existing.id;
+        if (existingList && existingList.length > 0) {
+          const match = existingList.find(ex =>
+            isSameCustomerIdentity(
+              { customer_name, mobile_number: cleanPhone },
+              { customer_name: ex.customer_name, mobile_number: ex.mobile_number }
+            )
+          );
+          if (match) {
+            customerId = match.id;
+          }
         }
       }
 
@@ -309,6 +281,7 @@ export async function POST(request: Request) {
         new_value: { customer_name, newspaper, order_no, start_date, end_date },
       });
 
+      invalidateServerCustomerCache();
       return NextResponse.json({ success: true, customer_id: customerId });
     } else {
       // In-memory fallback
@@ -353,6 +326,7 @@ export async function POST(request: Request) {
         ],
       });
 
+      invalidateServerCustomerCache();
       return NextResponse.json({ success: true, customer_id: saved.id });
     }
   } catch (err: any) {

@@ -377,23 +377,48 @@ console.log(`Total subscriptions: ${dinakaranRaw.length + theHinduRaw.length + n
 // Now merge multi-newspaper customer records into customer profiles with subscriptions
 const allRecords = [...dinakaranRaw, ...theHinduRaw, ...nieDinRaw, ...dinamalarRaw];
 
-// Grouping by unique customer:
-// Match key: Cleaned 10-digit phone number if valid, or normalized name
-function getCustomerKey(rec) {
-  if (rec.mobile && rec.mobile.length === 10) {
-    return `phone:${rec.mobile}`;
-  }
-  return `name:${rec.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+function normalizeCustomerName(name) {
+  if (!name) return '';
+  return cleanText(name).toLowerCase()
+    .replace(/\s*\([^)]*\)/g, '')
+    .replace(/[^a-z0-9]/g, '')
+    .replace(/y$/, 'i');
 }
 
-const customerGroups = new Map();
+function isSameCustomer(c1, c2) {
+  const p1 = sanitizePhone(c1.mobile_number || c1.mobile || '');
+  const p2 = sanitizePhone(c2.mobile_number || c2.mobile || '');
+
+  // If both have 10-digit phone and phones differ, definitely not same customer
+  if (p1.length === 10 && p2.length === 10 && p1 !== p2) {
+    return false;
+  }
+
+  // If phone matches, names must genuinely match (not different customers sharing phone)
+  const n1 = normalizeCustomerName(c1.customer_name || c1.name || '');
+  const n2 = normalizeCustomerName(c2.customer_name || c2.name || '');
+
+  if (!n1 || !n2) return false;
+  if (n1 === n2) return true;
+
+  if (n1.includes(n2) || n2.includes(n1)) {
+    const shorter = n1.length < n2.length ? n1 : n2;
+    if (shorter === 'ravi' && (n1.includes('ravindran') || n2.includes('ravindran'))) return false;
+    if (shorter === 'siva' && (n1.includes('sivakumar') || n2.includes('sivakumar'))) return false;
+    if (shorter.length >= 5) return true;
+  }
+  return false;
+}
+
+const customerList = [];
 
 for (const rec of allRecords) {
-  const key = getCustomerKey(rec);
-  if (!customerGroups.has(key)) {
-    customerGroups.set(key, {
+  let existingCust = customerList.find(c => isSameCustomer(c, rec));
+
+  if (!existingCust) {
+    existingCust = {
       customer_name: rec.name,
-      mobile_number: rec.mobile || '',
+      mobile_number: sanitizePhone(rec.mobile),
       email: rec.email || '',
       address: rec.address || '',
       street_area: extractArea(rec.address),
@@ -401,21 +426,21 @@ for (const rec of allRecords) {
       customer_type: rec.customer_type,
       notes: '',
       subscriptions: [],
-    });
+    };
+    customerList.push(existingCust);
   }
 
-  const cust = customerGroups.get(key);
   // Enhance customer details if missing
-  if (!cust.email && rec.email) cust.email = rec.email;
-  if ((!cust.address || cust.address === 'Royapuram, Chennai-13') && rec.address && rec.address !== '-') {
-    cust.address = rec.address;
-    cust.street_area = extractArea(rec.address);
-    cust.pincode = extractPincode(rec.address);
+  if (!existingCust.email && rec.email) existingCust.email = rec.email;
+  if ((!existingCust.address || existingCust.address === 'Royapuram, Chennai-13') && rec.address && rec.address !== '-') {
+    existingCust.address = rec.address;
+    existingCust.street_area = extractArea(rec.address);
+    existingCust.pincode = extractPincode(rec.address);
   }
-  if (!cust.mobile_number && rec.mobile) cust.mobile_number = rec.mobile;
-  if (rec.customer_type === 'Staff') cust.customer_type = 'Staff';
+  if (!existingCust.mobile_number && rec.mobile) existingCust.mobile_number = sanitizePhone(rec.mobile);
+  if (rec.customer_type === 'Staff') existingCust.customer_type = 'Staff';
 
-  cust.subscriptions.push({
+  existingCust.subscriptions.push({
     newspaper: rec.newspaper,
     order_no: rec.order_no || '',
     start_date: rec.start_date,
@@ -428,8 +453,6 @@ for (const rec of allRecords) {
     raw_s_no: rec.raw_s_no,
   });
 }
-
-const customerList = Array.from(customerGroups.values());
 
 // Assign customer codes
 customerList.forEach((c, idx) => {

@@ -2,8 +2,9 @@ import { NextResponse } from 'next/server';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 import { TABLES } from '@/lib/supabase/tables';
 import { getMockCustomers, saveMockCustomer } from '@/lib/mockData';
-import { sanitizePhone } from '@/lib/utils';
+import { sanitizePhone, isSameCustomerIdentity } from '@/lib/utils';
 import { NewspaperCode } from '@/lib/types';
+import { invalidateServerCustomerCache } from '@/lib/dataCache';
 import * as XLSX from 'xlsx';
 import { parseISO, isValid, addYears, subDays, format } from 'date-fns';
 
@@ -80,17 +81,26 @@ export async function POST(request: Request) {
         }
 
         try {
-          // Check existing customer by phone
+          // Check existing customer with same identity (phone AND name match)
           let customerId: string | null = null;
           if (phone && phone.length === 10) {
-            const { data: existing } = await supabase
+            const { data: existingList } = await supabase
               .from(TABLES.CUSTOMERS)
-              .select('id')
+              .select('id, customer_name, mobile_number')
               .eq('mobile_number', phone)
-              .maybeSingle();
-            if (existing) {
-              customerId = existing.id;
-              updated++;
+              .is('deleted_at', null);
+
+            if (existingList && existingList.length > 0) {
+              const match = existingList.find(ex =>
+                isSameCustomerIdentity(
+                  { customer_name: name, mobile_number: phone },
+                  { customer_name: ex.customer_name, mobile_number: ex.mobile_number }
+                )
+              );
+              if (match) {
+                customerId = match.id;
+                updated++;
+              }
             }
           }
 
@@ -175,6 +185,8 @@ export async function POST(request: Request) {
         });
       });
     }
+
+    invalidateServerCustomerCache();
 
     return NextResponse.json({
       total: rawRows.length,
